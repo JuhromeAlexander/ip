@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Donezo {
@@ -11,6 +12,8 @@ public class Donezo {
         "| |   ) || |   | || | \\   || (        /   /  | |   | |\n" +
         "| (__/  )| (___) || )  \\  || (____/\\ /   (_/\\| (___) |\n" +
         "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
+
+    ArrayList<String> tasksAL;
     public static void main(String[] args) {
         Donezo donezo = new Donezo();
         donezo.run();
@@ -21,9 +24,19 @@ public class Donezo {
         System.out.println("Hello from \n" + this.logo + "\n" + "What Can I do for you?");
         
         String inputString = scanner.nextLine();
+        tasksAL = new ArrayList<String>();
 
         while(!inputString.equals("bye")) {
-            System.out.println(inputString);
+            if (inputString.equals("list")) {
+                for (int i = 0; i < tasksAL.size(); i++) {
+                    int indexNum = i + 1;
+                    System.out.println(indexNum + ". " + tasksAL.get(i).toString());
+                }
+                inputString = scanner.nextLine();
+                continue;
+            }
+            tasksAL.add(inputString);
+            System.out.println("added: " + inputString);
             inputString = scanner.nextLine();
         }
 
