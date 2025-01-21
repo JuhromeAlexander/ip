@@ -1,5 +1,5 @@
 Hello from 
- ______   _______  _        _______  _______  _______
+ ______   _______  _        _______  _______  _______ 
 (  __  \ (  ___  )( (    /|(  ____ \/ ___   )(  ___  )
 | (  \  )| (   ) ||  \  ( || (    \/\/   )  || (   ) |
 | |   ) || |   | ||   \ | || (__        /   )| |   | |
@@ -21,10 +21,21 @@ Now you have 3 tasks in your list.
 1. [T][ ] test 1
 2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 3. [D][ ] assignment 1 (by: Fri 4pm)
+Good. This task is now complete
+[T][X] test 1
+Good. This task is now complete
+[E][X] project meeting (from: Mon 2pm to: 4pm)
+1. [T][X] test 1
+2. [E][X] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] assignment 1 (by: Fri 4pm)
+Really? You need to finish this soon. Marked as Undone
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [T][X] test 1
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] assignment 1 (by: Fri 4pm)
 Aight boss, I have removed the following task for you:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 2 tasks in your list.
-1. [T][ ] test 1
+1. [T][X] test 1
 2. [D][ ] assignment 1 (by: Fri 4pm)
 Peace out. Hope to see you again soon!
-
