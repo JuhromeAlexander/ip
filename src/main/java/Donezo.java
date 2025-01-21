@@ -44,9 +44,11 @@ public class Donezo {
                 continue;
             }
 
-            tasksAL.add(new Task(inputString));
-            System.out.println("added: " + tasksAL.get(numTasks).getDescription());
+            String taskType = inputString.split(" ")[0];
+
+            addTaskList(taskType, inputString, tasksAL);
             numTasks++;
+            System.out.println("Now you have " + numTasks + " tasks in your list.");
             inputString = scanner.nextLine();
         }
 
@@ -67,5 +69,31 @@ public class Donezo {
             System.out.println("Really? You need to finish this soon. Marked as Undone");
         }
         System.out.println(affectedTask.toString());
+    }
+
+    private void addTaskList(String taskType, String userInput, ArrayList<Task> tasklList) {
+        switch (taskType) {
+            case "deadline":
+                String deadlineArgs = userInput.split("/")[1].replace("by", "");
+                Deadline deadlineTask = new Deadline(taskType, deadlineArgs);
+                tasklList.add(deadlineTask);
+                System.out.println("Got it. This task has been added to your list:\n" + deadlineTask.toString());
+                break;
+            
+            case "todo":
+                Todo todoTask = new Todo(userInput.substring(5));
+                tasklList.add(todoTask);
+                System.out.println("Got it. This task has been added to your list:\n" + todoTask.toString());
+                break;
+            
+            case "event":
+                String eventFromArgs = userInput.split("/")[1].replace("from", "");
+                String eventToArgs = userInput.split("/")[2].replace("to", "");
+                String eventDescription = userInput.split("/")[0].replace("event ", "");
+                Event eventTask = new Event(eventDescription, eventFromArgs, eventToArgs);
+                tasklList.add(eventTask);
+                System.out.println("Got it. This task has been added to your list:\n" + eventTask.toString());
+                break;
+        }
     }
 }
