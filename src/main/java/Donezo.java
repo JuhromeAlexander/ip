@@ -46,8 +46,12 @@ public class Donezo {
 
             String taskType = inputString.split(" ")[0];
             try {
-                addTaskList(taskType, inputString, tasksAL);
-                numTasks++;
+                updateTaskList(taskType, inputString, tasksAL);
+                if (taskType.equals("delete")) {
+                    numTasks--;
+                } else {
+                    numTasks++;
+                }
                 System.out.println("Now you have " + numTasks + " tasks in your list.");
             } catch (DonezoException e) {
                 System.out.println(e.getMessage());
@@ -74,7 +78,7 @@ public class Donezo {
         System.out.println(affectedTask.toString());
     }
 
-    private void addTaskList(String taskType, String userInput, ArrayList<Task> tasklList) throws DonezoException {
+    private void updateTaskList(String taskType, String userInput, ArrayList<Task> taskList) throws DonezoException {
         switch (taskType) {
             case "deadline":
                 if (!userInput.contains("/by")) {
@@ -90,7 +94,7 @@ public class Donezo {
                     throw new DonezoException("Hey boss, I think you're forgetting the actual deadline. Add it in!");
                 }
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadlineArgs);
-                tasklList.add(deadlineTask);
+                taskList.add(deadlineTask);
                 System.out.println("Got it. This task has been added to your list:\n" + deadlineTask.toString());
                 break;
 
@@ -102,7 +106,7 @@ public class Donezo {
                 }
 
                 Todo todoTask = new Todo(userInput.substring(5).trim());
-                tasklList.add(todoTask);
+                taskList.add(todoTask);
                 System.out.println("Got it. This task has been added to your list:\n" + todoTask.toString());
                 break;
 
@@ -129,12 +133,23 @@ public class Donezo {
                 }
 
                 Event eventTask = new Event(eventDescription, eventFromArgs, eventToArgs);
-                tasklList.add(eventTask);
+                taskList.add(eventTask);
                 System.out.println("Got it. This task has been added to your list:\n" + eventTask.toString());
                 break;
 
+            case "delete":
+                int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                if (taskNdx > taskList.size()) {
+                    throw new DonezoException(
+                            "Sorry boss, that task does not exist. Try using 'list' to see the index of the task again!");
+                }
+                System.out.println(
+                        "Aight boss, I have removed the following task for you:\n" + taskList.get(taskNdx).toString());
+                taskList.remove(taskNdx);
+                break;
             default:
                 throw new DonezoException("Sorry boss, can't help you there. Try another command!");
         }
     }
+
 }
