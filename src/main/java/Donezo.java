@@ -3,32 +3,32 @@ import java.util.Scanner;
 
 public class Donezo {
 
-    String logo =
-        " ______   _______  _        _______  _______  _______ \n" +
-        "(  __  \\ (  ___  )( (    /|(  ____ \\/ ___   )(  ___  )\n" +
-        "| (  \\  )| (   ) ||  \\  ( || (    \\/\\/   )  || (   ) |\n" +
-        "| |   ) || |   | ||   \\ | || (__        /   )| |   | |\n" +
-        "| |   | || |   | || (\\ \\) ||  __)      /   / | |   | |\n" +
-        "| |   ) || |   | || | \\   || (        /   /  | |   | |\n" +
-        "| (__/  )| (___) || )  \\  || (____/\\ /   (_/\\| (___) |\n" +
-        "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
+    String logo = " ______   _______  _        _______  _______  _______ \n" +
+            "(  __  \\ (  ___  )( (    /|(  ____ \\/ ___   )(  ___  )\n" +
+            "| (  \\  )| (   ) ||  \\  ( || (    \\/\\/   )  || (   ) |\n" +
+            "| |   ) || |   | ||   \\ | || (__        /   )| |   | |\n" +
+            "| |   | || |   | || (\\ \\) ||  __)      /   / | |   | |\n" +
+            "| |   ) || |   | || | \\   || (        /   /  | |   | |\n" +
+            "| (__/  )| (___) || )  \\  || (____/\\ /   (_/\\| (___) |\n" +
+            "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
 
     ArrayList<Task> tasksAL;
+
     public static void main(String[] args) {
         Donezo donezo = new Donezo();
         donezo.run();
     }
-    
+
     private void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello from \n" + this.logo + "\n" + "What Can I do for you?");
 
         int numTasks = 0;
-        
+
         String inputString = scanner.nextLine();
         tasksAL = new ArrayList<Task>();
 
-        while(!inputString.equals("bye")) {
+        while (!inputString.equals("bye")) {
             if (inputString.equals("list")) {
                 for (int i = 0; i < tasksAL.size(); i++) {
                     int indexNum = i + 1;
@@ -45,10 +45,13 @@ public class Donezo {
             }
 
             String taskType = inputString.split(" ")[0];
-
-            addTaskList(taskType, inputString, tasksAL);
-            numTasks++;
-            System.out.println("Now you have " + numTasks + " tasks in your list.");
+            try {
+                addTaskList(taskType, inputString, tasksAL);
+                numTasks++;
+                System.out.println("Now you have " + numTasks + " tasks in your list.");
+            } catch (DonezoException e) {
+                System.out.println(e.getMessage());
+            }
             inputString = scanner.nextLine();
         }
 
@@ -61,40 +64,77 @@ public class Donezo {
         int taskNdx = Integer.parseInt(userInputArr[1]) - 1;
         Task affectedTask = taskList.get(taskNdx);
 
-        if (userInputArr[0].equals("mark")) {    
+        if (userInputArr[0].equals("mark")) {
             affectedTask.setDone(true);
             System.out.println("Good. This task is now complete");
-        } else {   
+        } else {
             affectedTask.setDone(false);
             System.out.println("Really? You need to finish this soon. Marked as Undone");
         }
         System.out.println(affectedTask.toString());
     }
 
-    private void addTaskList(String taskType, String userInput, ArrayList<Task> tasklList) {
+    private void addTaskList(String taskType, String userInput, ArrayList<Task> tasklList) throws DonezoException {
         switch (taskType) {
             case "deadline":
-                String deadlineArgs = userInput.split("/")[1].replace("by", "");
+                if (!userInput.contains("/by")) {
+                    throw new DonezoException("Hey boss, the '/by' argument ain't here. Add it in!");
+                }
                 String deadlineDescription = userInput.split("/")[0].replace("deadline ", "").trim();
+                if (deadlineDescription.isBlank()) {
+                    throw new DonezoException(
+                            "Hey boss, I think you're forgetting the description this deadline is for. Add it in!");
+                }
+                String deadlineArgs = userInput.split("/")[1].replace("by", "").trim();
+                if (deadlineArgs.isBlank()) {
+                    throw new DonezoException("Hey boss, I think you're forgetting the actual deadline. Add it in!");
+                }
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadlineArgs);
                 tasklList.add(deadlineTask);
                 System.out.println("Got it. This task has been added to your list:\n" + deadlineTask.toString());
                 break;
-            
+
             case "todo":
-                Todo todoTask = new Todo(userInput.substring(5));
+                String todoDesc = userInput.substring(5).trim();
+
+                if (todoDesc.isBlank()) {
+                    throw new DonezoException("Hey boss, the description for this task can't be empty!");
+                }
+
+                Todo todoTask = new Todo(userInput.substring(5).trim());
                 tasklList.add(todoTask);
                 System.out.println("Got it. This task has been added to your list:\n" + todoTask.toString());
                 break;
-            
+
             case "event":
-                String eventFromArgs = userInput.split("/")[1].replace("from", "");
-                String eventToArgs = userInput.split("/")[2].replace("to", "");
-                String eventDescription = userInput.split("/")[0].replace("event ", "");
+                if (!userInput.contains("/from")) {
+                    throw new DonezoException("Hey boss, the '/from' argument ain't here. Add it in!");
+                }
+                if (!userInput.contains("/to")) {
+                    throw new DonezoException("Hey boss, the '/to' argument ain't here. Add it in!");
+                }
+
+                String eventDescription = userInput.split("/")[0].replace("event ", "").trim();
+                if (eventDescription.isBlank()) {
+                    throw new DonezoException(
+                            "Hey boss, I think you're forgetting the description this deadline is for. Add it in!");
+                }
+                String eventFromArgs = userInput.split("/")[1].replace("from", "").trim();
+                if (eventFromArgs.isBlank()) {
+                    throw new DonezoException("Hey boss, I ain't no mind reader, add the content for the /from field.");
+                }
+                String eventToArgs = userInput.split("/")[2].replace("to", "").trim();
+                if (eventToArgs.isBlank()) {
+                    throw new DonezoException("Hey boss, I ain't no mind reader, add the content for the /to field.");
+                }
+
                 Event eventTask = new Event(eventDescription, eventFromArgs, eventToArgs);
                 tasklList.add(eventTask);
                 System.out.println("Got it. This task has been added to your list:\n" + eventTask.toString());
                 break;
+
+            default:
+                throw new DonezoException("Sorry boss, can't help you there. Try another command!");
         }
     }
 }
