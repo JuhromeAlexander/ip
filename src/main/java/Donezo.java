@@ -75,7 +75,8 @@ public class Donezo {
         switch (taskType) {
             case "deadline":
                 String deadlineArgs = userInput.split("/")[1].replace("by", "");
-                Deadline deadlineTask = new Deadline(taskType, deadlineArgs);
+                String deadlineDescription = userInput.split("/")[0].replace("deadline ", "").trim();
+                Deadline deadlineTask = new Deadline(deadlineDescription, deadlineArgs);
                 tasklList.add(deadlineTask);
                 System.out.println("Got it. This task has been added to your list:\n" + deadlineTask.toString());
                 break;
