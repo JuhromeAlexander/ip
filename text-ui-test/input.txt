@@ -1,0 +1,7 @@
+todo test 1
+event project meeting /from Mon 2pm /to 4pm
+deadline assignment 1 /by Fri 4pm
+list
+delete 2
+list
+bye

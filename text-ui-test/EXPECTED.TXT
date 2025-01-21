@@ -1,7 +1,30 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello from 
+ ______   _______  _        _______  _______  _______
+(  __  \ (  ___  )( (    /|(  ____ \/ ___   )(  ___  )
+| (  \  )| (   ) ||  \  ( || (    \/\/   )  || (   ) |
+| |   ) || |   | ||   \ | || (__        /   )| |   | |
+| |   | || |   | || (\ \) ||  __)      /   / | |   | |
+| |   ) || |   | || | \   || (        /   /  | |   | |
+| (__/  )| (___) || )  \  || (____/\ /   (_/\| (___) |
+(______/ (_______)|/    )_)(_______/(_______/(_______)
+
+What Can I do for you?
+Got it. This task has been added to your list:
+[T][ ] test 1
+Now you have 1 tasks in your list.
+Got it. This task has been added to your list:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in your list.
+Got it. This task has been added to your list:
+[D][ ] assignment 1 (by: Fri 4pm)
+Now you have 3 tasks in your list.
+1. [T][ ] test 1
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [D][ ] assignment 1 (by: Fri 4pm)
+Aight boss, I have removed the following task for you:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in your list.
+1. [T][ ] test 1
+2. [D][ ] assignment 1 (by: Fri 4pm)
+Peace out. Hope to see you again soon!
 
