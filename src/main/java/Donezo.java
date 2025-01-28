@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,21 +14,28 @@ public class Donezo {
             "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
 
     ArrayList<Task> tasksAL;
+    Storage storage;
 
     public static void main(String[] args) {
         Donezo donezo = new Donezo();
-        donezo.run();
+        try {
+            donezo.run();
+        } catch (DonezoException e) {
+            System.out.println(e);
+        }
     }
 
-    private void run() {
+    private void run() throws DonezoException {
         Scanner scanner = new Scanner(System.in);
+        storage = new Storage("tasks.txt");
+        tasksAL = storage.loadFromFile();
+        int numTasks = tasksAL.size();
         System.out.println("Hello from \n" + this.logo + "\n" + "What Can I do for you?");
 
-        int numTasks = 0;
+        
 
         String inputString = scanner.nextLine();
-        tasksAL = new ArrayList<Task>();
-
+        
         while (!inputString.equals("bye")) {
             if (inputString.equals("list")) {
                 for (int i = 0; i < tasksAL.size(); i++) {
@@ -96,6 +104,11 @@ public class Donezo {
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadlineArgs);
                 taskList.add(deadlineTask);
                 System.out.println("Got it. This task has been added to your list:\n" + deadlineTask.toString());
+                try {
+                    storage.writeToFile(storage.getFilePath(), deadlineTask.toString());
+                } catch (IOException e) {
+                    System.out.println("Unable to save task to file!");
+                }
                 break;
 
             case "todo":
