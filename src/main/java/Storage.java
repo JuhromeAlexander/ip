@@ -42,6 +42,8 @@ public class Storage {
 
     public ArrayList<Task> loadFromFile() throws DonezoException {
         try {
+            checkFileExist();
+
             List<String> tasks = Files.readAllLines(Paths.get(this.filePath));
             for (int i = 0; i < tasks.size(); i++) {
                 String line = tasks.get(i);
@@ -50,6 +52,19 @@ public class Storage {
             return taskList;
         } catch (IOException e) {
             throw new DonezoException("Oops boss, can't read from the existing file. Data may be lost!");
+        }
+    }
+
+    private void checkFileExist() throws IOException {
+        File expectedFile = new File(getFilePath());
+        File expectedFolder = expectedFile.getParentFile();
+
+        if (!expectedFolder.exists()) {
+            expectedFolder.mkdirs();
+        }
+
+        if (!expectedFile.exists()) {
+            expectedFile.createNewFile();
         }
     }
 
