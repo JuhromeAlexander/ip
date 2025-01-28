@@ -160,6 +160,11 @@ public class Donezo {
                 Event eventTask = new Event(eventDescription, eventFromArgs, eventToArgs);
                 taskList.add(eventTask);
                 System.out.println("Got it. This task has been added to your list:\n" + eventTask.toString());
+                try {
+                    storage.writeToFile(storage.getFilePath(), eventTask.toString());
+                } catch (IOException e) {
+                    System.out.println("Unable to save task to file!");
+                }
                 break;
 
             case "delete":

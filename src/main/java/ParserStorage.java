@@ -27,7 +27,30 @@ public class ParserStorage {
         if (lineToParse.contains("[X]")) {   
             todoTask.setDone(true);
         }
+        
         storage.addTask(todoTask);
+    }
+
+    public static void parseEvent(String lineToParse, Storage storage) {
+        int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
+        int ndxDescriptionEnd = lineToParse.indexOf("(from: ");
+        String description = lineToParse.substring(ndxDescriptionStart, ndxDescriptionEnd).trim();
+
+        int ndxFromStart = lineToParse.indexOf("(from: ") + 7;
+        int ndxFromEnd = lineToParse.indexOf(" to: ");
+        String from = lineToParse.substring(ndxFromStart, ndxFromEnd).trim();
+
+        int ndxToStart = lineToParse.indexOf("to: ") + 4;
+        int ndxToEnd = lineToParse.lastIndexOf(')');
+        String to = lineToParse.substring(ndxToStart, ndxToEnd);
+
+        Event eventTask = new Event(description, from, to);
+
+        if (lineToParse.contains("[X]")) {
+            eventTask.setDone(true);
+        }
+
+        storage.addTask(eventTask);
     }
 
 }

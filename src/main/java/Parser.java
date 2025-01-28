@@ -4,6 +4,8 @@ public class Parser {
             ParserStorage.parseDeadline(lineToParse, storage);
         } else if (lineToParse.contains("[T]")) {
             ParserStorage.parseToDo(lineToParse, storage);
+        } else if (lineToParse.contains("[E]")) {
+            ParserStorage.parseEvent(lineToParse, storage);
         }
     }
 }
