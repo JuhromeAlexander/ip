@@ -28,18 +28,17 @@ public class Storage {
     }
 
     public void deleteFromFile(String filePath, ArrayList<Task> taskList) throws IOException {
+        File tempFile = new File("data/tempFile.txt");
         try (FileWriter fileWriter = new FileWriter("data/tempFile.txt", true)) {
-            File tempFile = new File("data/tempFile.txt");
-
+            
             for (int i = 0; i < taskList.size(); i++) {
                 String line = taskList.get(i).toString();
                 fileWriter.write(line + "\n");
             }
-
-            Files.delete(Paths.get(filePath));
-            File actualFile = new File(filePath);
-            tempFile.renameTo(actualFile);
         }
+        Files.delete(Paths.get(filePath));
+        File actualFile = new File(filePath);
+        tempFile.renameTo(actualFile);
         
     }
 

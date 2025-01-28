@@ -47,7 +47,7 @@ public class Donezo {
             }
 
             if (inputString.contains("mark") || inputString.contains("unmark")) {
-                updateTaskStatus(inputString, tasksAL);
+                updateTaskStatus(inputString, tasksAL, storage);
                 inputString = scanner.nextLine();
                 continue;
             }
@@ -71,7 +71,7 @@ public class Donezo {
         scanner.close();
     }
 
-    private void updateTaskStatus(String userInput, ArrayList<Task> taskList) {
+    private void updateTaskStatus(String userInput, ArrayList<Task> taskList, Storage storage) {
         String[] userInputArr = userInput.split(" ");
         int taskNdx = Integer.parseInt(userInputArr[1]) - 1;
         Task affectedTask = taskList.get(taskNdx);
@@ -82,6 +82,12 @@ public class Donezo {
         } else {
             affectedTask.setDone(false);
             System.out.println("Really? You need to finish this soon. Marked as Undone");
+        }
+
+        try {
+            storage.deleteFromFile(storage.getFilePath(), taskList);
+        } catch (IOException e) {
+            System.out.println("Something went wrong!");
         }
         System.out.println(affectedTask.toString());
     }
@@ -159,6 +165,11 @@ public class Donezo {
                 System.out.println(
                         "Aight boss, I have removed the following task for you:\n" + taskList.get(taskNdx).toString());
                 taskList.remove(taskNdx);
+                try {
+                    storage.deleteFromFile(storage.getFilePath(), taskList);
+                } catch (IOException e) {
+                    throw new DonezoException("Whoops unable to delete file!");
+                }
                 break;
             default:
                 throw new DonezoException("Sorry boss, can't help you there. Try another command!");

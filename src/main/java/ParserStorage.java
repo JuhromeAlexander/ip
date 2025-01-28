@@ -1,5 +1,6 @@
 
 public class ParserStorage {
+    
     public static void parseDeadline(String lineToParse, Storage storage) {
         if (lineToParse.contains("[X]")) {
             int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
