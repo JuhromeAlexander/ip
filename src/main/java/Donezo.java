@@ -127,6 +127,12 @@ public class Donezo {
                 Todo todoTask = new Todo(userInput.substring(5).trim());
                 taskList.add(todoTask);
                 System.out.println("Got it. This task has been added to your list:\n" + todoTask.toString());
+
+                try {
+                    storage.writeToFile(storage.getFilePath(), todoTask.toString());
+                } catch (IOException e) {
+                    System.out.println("Unable to save task to file!");
+                }
                 break;
 
             case "event":

@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private File storageFile;
     private ArrayList<Task> taskList;
     private String filePath;
 
     public Storage(String fileName) {
         filePath = "data/" + fileName;
-        storageFile = new File(filePath);
         taskList = new ArrayList<Task>();
     }
 
