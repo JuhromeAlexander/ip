@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,21 +14,28 @@ public class Donezo {
             "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
 
     ArrayList<Task> tasksAL;
+    Storage storage;
 
     public static void main(String[] args) {
         Donezo donezo = new Donezo();
-        donezo.run();
+        try {
+            donezo.run();
+        } catch (DonezoException e) {
+            System.out.println(e);
+        }
     }
 
-    private void run() {
+    private void run() throws DonezoException {
         Scanner scanner = new Scanner(System.in);
+        storage = new Storage("tasks.txt");
+        tasksAL = storage.loadFromFile();
+        int numTasks = tasksAL.size();
         System.out.println("Hello from \n" + this.logo + "\n" + "What Can I do for you?");
 
-        int numTasks = 0;
+        
 
         String inputString = scanner.nextLine();
-        tasksAL = new ArrayList<Task>();
-
+        
         while (!inputString.equals("bye")) {
             if (inputString.equals("list")) {
                 for (int i = 0; i < tasksAL.size(); i++) {
@@ -39,7 +47,7 @@ public class Donezo {
             }
 
             if (inputString.contains("mark") || inputString.contains("unmark")) {
-                updateTaskStatus(inputString, tasksAL);
+                updateTaskStatus(inputString, tasksAL, storage);
                 inputString = scanner.nextLine();
                 continue;
             }
@@ -63,7 +71,7 @@ public class Donezo {
         scanner.close();
     }
 
-    private void updateTaskStatus(String userInput, ArrayList<Task> taskList) {
+    private void updateTaskStatus(String userInput, ArrayList<Task> taskList, Storage storage) {
         String[] userInputArr = userInput.split(" ");
         int taskNdx = Integer.parseInt(userInputArr[1]) - 1;
         Task affectedTask = taskList.get(taskNdx);
@@ -74,6 +82,12 @@ public class Donezo {
         } else {
             affectedTask.setDone(false);
             System.out.println("Really? You need to finish this soon. Marked as Undone");
+        }
+
+        try {
+            storage.deleteFromFile(storage.getFilePath(), taskList);
+        } catch (IOException e) {
+            System.out.println("Something went wrong!");
         }
         System.out.println(affectedTask.toString());
     }
@@ -96,6 +110,11 @@ public class Donezo {
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadlineArgs);
                 taskList.add(deadlineTask);
                 System.out.println("Got it. This task has been added to your list:\n" + deadlineTask.toString());
+                try {
+                    storage.writeToFile(storage.getFilePath(), deadlineTask.toString());
+                } catch (IOException e) {
+                    System.out.println("Unable to save task to file!");
+                }
                 break;
 
             case "todo":
@@ -108,6 +127,12 @@ public class Donezo {
                 Todo todoTask = new Todo(userInput.substring(5).trim());
                 taskList.add(todoTask);
                 System.out.println("Got it. This task has been added to your list:\n" + todoTask.toString());
+
+                try {
+                    storage.writeToFile(storage.getFilePath(), todoTask.toString());
+                } catch (IOException e) {
+                    System.out.println("Unable to save task to file!");
+                }
                 break;
 
             case "event":
@@ -135,6 +160,11 @@ public class Donezo {
                 Event eventTask = new Event(eventDescription, eventFromArgs, eventToArgs);
                 taskList.add(eventTask);
                 System.out.println("Got it. This task has been added to your list:\n" + eventTask.toString());
+                try {
+                    storage.writeToFile(storage.getFilePath(), eventTask.toString());
+                } catch (IOException e) {
+                    System.out.println("Unable to save task to file!");
+                }
                 break;
 
             case "delete":
@@ -146,6 +176,11 @@ public class Donezo {
                 System.out.println(
                         "Aight boss, I have removed the following task for you:\n" + taskList.get(taskNdx).toString());
                 taskList.remove(taskNdx);
+                try {
+                    storage.deleteFromFile(storage.getFilePath(), taskList);
+                } catch (IOException e) {
+                    throw new DonezoException("Whoops unable to delete file!");
+                }
                 break;
             default:
                 throw new DonezoException("Sorry boss, can't help you there. Try another command!");
