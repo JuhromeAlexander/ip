@@ -31,8 +31,8 @@ public class Donezo {
 
         System.out.println(ui.greetUser());
         String userInput = ui.nextLine();
-        String taskType = parser.parseCommand(userInput);
         while (!userInput.equals("bye")) {
+            String taskType = parser.parseCommand(userInput);
             switch (taskType.toLowerCase()) {
             case "list":
                 ListCommand listCommand = new ListCommand();
@@ -40,6 +40,17 @@ public class Donezo {
                 userInput = ui.nextLine();
                 break;
             
+            case "mark":
+                MarkCommand markCommand = new MarkCommand();
+                markCommand.executeCommand(userInput, taskListActual);
+                userInput = ui.nextLine();
+                break;
+            
+            case "unmark":
+                UnmarkCommand unmarkCommand = new UnmarkCommand();
+                unmarkCommand.executeCommand(userInput, taskListActual);
+                userInput = ui.nextLine();
+                break;
             }
         }
         System.out.println(ui.sayBye());

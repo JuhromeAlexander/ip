@@ -37,14 +37,12 @@ public class UI {
         return stringBuilder.toString();
     }
 
-    public String markTaskComplete() {
-        String line = "Good. This task is now complete";
-        return line;
+    public void markTaskComplete() {
+        System.out.println("Good. This task is now complete");
     }
 
-    public String unmarkTaskComplete() {
-        String line = "Really? You need to finish this soon. Marked as Undone";
-        return line;
+    public void unmarkTaskComplete() {
+       System.out.println("Really? You need to finish this soon. Marked as Undone");
     }
 
     public String printTaskList(TaskList taskList) {
@@ -57,5 +55,9 @@ public class UI {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public void genericErrorMsg() {
+        System.out.println("Oooops! Something went wrong!");
     }
 }
