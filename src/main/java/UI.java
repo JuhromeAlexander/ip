@@ -45,6 +45,14 @@ public class UI {
        System.out.println("Really? You need to finish this soon. Marked as Undone");
     }
 
+    public void printNumTasks(int numTasks) {
+        System.out.println("Now you have " + numTasks + " tasks in your list.");
+    }
+
+    public void printDeleteTask(Task task) {
+        System.out.println("Aight boss, I have removed the following task for you:\n" + task.toString());
+    }
+
     public String printTaskList(TaskList taskList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {

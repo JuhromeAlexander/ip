@@ -29,6 +29,8 @@ public class Donezo {
         TaskList taskListActual = storageActual.loadFromFile();
         Parser parser = new Parser();
 
+        int numTasks = taskListActual.getSizeTaskList();
+
         System.out.println(ui.greetUser());
         String userInput = ui.nextLine();
         while (!userInput.equals("bye")) {
@@ -49,6 +51,14 @@ public class Donezo {
             case "unmark":
                 UnmarkCommand unmarkCommand = new UnmarkCommand();
                 unmarkCommand.executeCommand(userInput, taskListActual);
+                userInput = ui.nextLine();
+                break;
+
+            case "delete":
+                DeleteCommand deleteCommand = new DeleteCommand();
+                deleteCommand.executeCommand(userInput, taskListActual);
+                numTasks--;
+                ui.printNumTasks(numTasks);
                 userInput = ui.nextLine();
                 break;
             }
