@@ -3,16 +3,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private ArrayList<Task> taskList;
+    //private ArrayList<Task> taskList;
     private String filePath;
+    private TaskList taskListActual;
 
     public Storage(String fileName) {
         filePath = "data/" + fileName;
-        taskList = new ArrayList<Task>();
+        //taskList = new ArrayList<Task>();
+        taskListActual = new TaskList();
     }
 
     public String getFilePath() {
@@ -25,12 +26,12 @@ public class Storage {
         }
     }
 
-    public void deleteFromFile(String filePath, ArrayList<Task> taskList) throws IOException {
+    public void deleteFromFile(String filePath, TaskList taskList) throws IOException {
         File tempFile = new File("data/tempFile.txt");
         try (FileWriter fileWriter = new FileWriter("data/tempFile.txt", true)) {
             
-            for (int i = 0; i < taskList.size(); i++) {
-                String line = taskList.get(i).toString();
+            for (int i = 0; i < taskList.getSizeTaskList(); i++) {
+                String line = taskList.getTask(i).toString();
                 fileWriter.write(line + "\n");
             }
         }
@@ -40,7 +41,7 @@ public class Storage {
         
     }
 
-    public ArrayList<Task> loadFromFile() throws DonezoException {
+    public TaskList loadFromFile() throws DonezoException {
         try {
             checkFileExist();
 
@@ -49,7 +50,7 @@ public class Storage {
                 String line = tasks.get(i);
                 Parser.parseStorageLine(line, this);
             }
-            return taskList;
+            return taskListActual;
         } catch (IOException e) {
             throw new DonezoException("Oops boss, can't read from the existing file. Data may be lost!");
         }
@@ -69,7 +70,7 @@ public class Storage {
     }
 
     public void addTask(Task task) {
-        taskList.add(task);
+        taskListActual.addTask(task);
     }
     
 }

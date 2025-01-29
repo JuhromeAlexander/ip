@@ -8,4 +8,9 @@ public class Parser {
             ParserStorage.parseEvent(lineToParse, storage);
         }
     }
+
+    public String parseCommand(String userInput) {
+        String taskType = userInput.split(" ")[0];
+        return taskType;
+    }
 }
