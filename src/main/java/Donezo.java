@@ -142,17 +142,21 @@ public class Donezo {
                 if (!userInput.contains("/to")) {
                     throw new DonezoException("Hey boss, the '/to' argument ain't here. Add it in!");
                 }
-
-                String eventDescription = userInput.split("/")[0].replace("event ", "").trim();
+                
+                String eventDescription = 
+                        userInput.substring(userInput.indexOf("event") + 6, userInput.indexOf("/from")).trim();
                 if (eventDescription.isBlank()) {
                     throw new DonezoException(
                             "Hey boss, I think you're forgetting the description this deadline is for. Add it in!");
                 }
-                String eventFromArgs = userInput.split("/")[1].replace("from", "").trim();
+
+                String eventFromArgs = 
+                        userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to")).trim();
                 if (eventFromArgs.isBlank()) {
                     throw new DonezoException("Hey boss, I ain't no mind reader, add the content for the /from field.");
                 }
-                String eventToArgs = userInput.split("/")[2].replace("to", "").trim();
+
+                String eventToArgs = userInput.substring(userInput.indexOf("/to") + 4).trim();
                 if (eventToArgs.isBlank()) {
                     throw new DonezoException("Hey boss, I ain't no mind reader, add the content for the /to field.");
                 }
