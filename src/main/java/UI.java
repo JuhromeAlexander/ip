@@ -53,6 +53,14 @@ public class UI {
         System.out.println("Aight boss, I have removed the following task for you:\n" + task.toString());
     }
 
+    public void printAddTask(Task task) {
+        System.out.println("Got it. This task has been added to your list:\n" + task.toString());
+    }
+
+    public void printDonezoExceptionMessage(DonezoException e) {
+        System.out.println(e.getMessage());
+    }
+
     public String printTaskList(TaskList taskList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {

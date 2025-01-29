@@ -56,11 +56,26 @@ public class Donezo {
 
             case "delete":
                 DeleteCommand deleteCommand = new DeleteCommand();
-                deleteCommand.executeCommand(userInput, taskListActual);
-                numTasks--;
-                ui.printNumTasks(numTasks);
+                try {
+                    deleteCommand.executeCommand(userInput, taskListActual);
+                    numTasks--;
+                    ui.printNumTasks(numTasks);
+                } catch (DonezoException e) {
+                    ui.printDonezoExceptionMessage(e);
+                }
                 userInput = ui.nextLine();
                 break;
+            
+            case "deadline":
+                DeadlineCommand deadlineCommand = new DeadlineCommand();
+                try {
+                    deadlineCommand.executeCommand(userInput, taskListActual);
+                    numTasks++;
+                    ui.printNumTasks(numTasks);
+                } catch (DonezoException e) {
+                    ui.printDonezoExceptionMessage(e);
+                }
+                userInput = ui.nextLine();
             }
         }
         System.out.println(ui.sayBye());
