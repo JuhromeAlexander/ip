@@ -12,8 +12,15 @@ public class ParserStorage {
         int ndxByStart = lineToParse.indexOf("(by: ") + 5;
         int ndxByEnd = lineToParse.lastIndexOf(')');
         String by = lineToParse.substring(ndxByStart, ndxByEnd);
+
+        // DateTimeFormatters for Saved Deadlines in the Task File
+        DateTimeFormatter storedFormat = DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a");
+        DateTimeFormatter deadlineConstructorFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+        LocalDateTime byDateTime = LocalDateTime.parse(by, storedFormat);
+        String formattedBy = byDateTime.format(deadlineConstructorFormat);
         
-        Deadline deadlineTask = new Deadline(description, by);
+        Deadline deadlineTask = new Deadline(description, formattedBy);
 
         if (lineToParse.contains("[X]")) {
             deadlineTask.setDone(true);
@@ -47,7 +54,7 @@ public class ParserStorage {
         int ndxToEnd = lineToParse.lastIndexOf(')');
         String to = lineToParse.substring(ndxToStart, ndxToEnd);
 
-        // DateTimeFormatters for Saved Tasks in the Task File
+        // DateTimeFormatters for Saved Events in the Task File
         DateTimeFormatter storedFormat = DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a");
         DateTimeFormatter eventConstructorFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 

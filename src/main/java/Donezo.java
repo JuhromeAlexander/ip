@@ -98,18 +98,23 @@ public class Donezo {
                 if (!userInput.contains("/by")) {
                     throw new DonezoException("Hey boss, the '/by' argument ain't here. Add it in!");
                 }
-                String deadlineDescription = userInput.split("/")[0].replace("deadline ", "").trim();
+
+                String deadlineDescription = 
+                        userInput.substring(userInput.indexOf("deadline") + 9, userInput.indexOf("/by")).trim();
                 if (deadlineDescription.isBlank()) {
                     throw new DonezoException(
                             "Hey boss, I think you're forgetting the description this deadline is for. Add it in!");
                 }
-                String deadlineArgs = userInput.split("/")[1].replace("by", "").trim();
+
+                String deadlineArgs = userInput.substring(userInput.indexOf("/by") + 4).trim();
                 if (deadlineArgs.isBlank()) {
                     throw new DonezoException("Hey boss, I think you're forgetting the actual deadline. Add it in!");
                 }
+
                 Deadline deadlineTask = new Deadline(deadlineDescription, deadlineArgs);
                 taskList.add(deadlineTask);
                 System.out.println("Got it. This task has been added to your list:\n" + deadlineTask.toString());
+                
                 try {
                     storage.writeToFile(storage.getFilePath(), deadlineTask.toString());
                 } catch (IOException e) {
