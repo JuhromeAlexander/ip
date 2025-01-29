@@ -65,6 +65,10 @@ public class UI {
         System.out.println("Unable to save task to file!");
     }
 
+    public void printTryCommandAgain() {
+        System.out.println("Sorry boss, can't help you there. Try another command!");
+    }
+
     public String printTaskList(TaskList taskList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
