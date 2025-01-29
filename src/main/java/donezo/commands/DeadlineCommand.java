@@ -1,4 +1,8 @@
+package  donezo.commands;
 
+import donezo.TaskList;
+import donezo.exceptions.DonezoException;
+import donezo.tasks.Deadline;
 import java.io.IOException;
 
 public class DeadlineCommand extends Command {
@@ -29,7 +33,7 @@ public class DeadlineCommand extends Command {
         try {
             storage.writeToFile(storage.getFilePath(), deadlineTask.toString());
         } catch (IOException e) {
-            System.out.println("Unable to save task to file!");
+            ui.printUnableToSaveTaskFile();
         }
     }
     

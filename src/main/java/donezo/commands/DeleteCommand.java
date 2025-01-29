@@ -1,7 +1,10 @@
+package  donezo.commands;
 
+import donezo.TaskList;
+import donezo.exceptions.DonezoException;
 import java.io.IOException;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException{
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;

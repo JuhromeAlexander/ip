@@ -1,4 +1,6 @@
 //Code Adapted from Partial Solution Provided on the A-Classes Extension
+package donezo.tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;

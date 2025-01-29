@@ -1,3 +1,8 @@
+package donezo;
+
+import donezo.commands.*;
+import donezo.exceptions.DonezoException;
+import donezo.parser.Parser;
 
 public class Donezo {
     public static void main(String[] args) {
@@ -19,6 +24,7 @@ public class Donezo {
 
         System.out.println(ui.greetUser());
         String userInput = ui.nextLine();
+        
         while (!userInput.equals("bye")) {
             String taskType = parser.parseCommand(userInput);
             switch (taskType.toLowerCase()) {

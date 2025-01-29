@@ -1,3 +1,7 @@
+package  donezo.commands;
+
+import donezo.TaskList;
+import donezo.tasks.Task;
 import java.io.IOException;
 
 public class UnmarkCommand extends Command{

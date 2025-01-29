@@ -1,4 +1,8 @@
+package  donezo.commands;
 
+import donezo.TaskList;
+import donezo.exceptions.DonezoException;
+import donezo.tasks.Event;
 import java.io.IOException;
 
 public class EventCommand extends Command {
@@ -33,6 +37,7 @@ public class EventCommand extends Command {
         Event eventTask = new Event(eventDescription, eventFromArgs, eventToArgs);
         taskList.addTask(eventTask);
         ui.printAddTask(eventTask);
+        
         try {
             storage.writeToFile(storage.getFilePath(), eventTask.toString());
         } catch (IOException e) {

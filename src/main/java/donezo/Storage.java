@@ -1,3 +1,8 @@
+package donezo;
+
+import donezo.exceptions.DonezoException;
+import donezo.parser.Parser;
+import donezo.tasks.Task;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

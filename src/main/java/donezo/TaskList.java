@@ -1,3 +1,6 @@
+package donezo;
+
+import donezo.tasks.*;
 import java.util.ArrayList;
 
 public class TaskList {

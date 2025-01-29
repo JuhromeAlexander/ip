@@ -1,3 +1,7 @@
+package donezo;
+
+import donezo.exceptions.DonezoException;
+import donezo.tasks.Task;
 import java.util.Scanner;
 
 public class UI {
