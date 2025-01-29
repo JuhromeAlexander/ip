@@ -76,6 +76,19 @@ public class Donezo {
                     ui.printDonezoExceptionMessage(e);
                 }
                 userInput = ui.nextLine();
+                break;
+            
+            case "event":
+                EventCommand eventCommand = new EventCommand();
+                try {
+                    eventCommand.executeCommand(userInput, taskListActual);
+                    numTasks++;
+                    ui.printNumTasks(numTasks);
+                } catch (DonezoException e) {
+                    ui.printDonezoExceptionMessage(e);
+                }
+                userInput = ui.nextLine();
+                break;
             }
         }
         System.out.println(ui.sayBye());

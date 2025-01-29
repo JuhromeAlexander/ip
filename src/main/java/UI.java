@@ -61,6 +61,10 @@ public class UI {
         System.out.println(e.getMessage());
     }
 
+    public void printUnableToSaveTaskFile() {
+        System.out.println("Unable to save task to file!");
+    }
+
     public String printTaskList(TaskList taskList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
