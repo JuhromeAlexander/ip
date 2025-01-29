@@ -31,6 +31,12 @@ public class UI {
         return stringBuilder.toString();
     }
 
+    public String sayBye() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Peace out. Hope to see you again soon!\n");
+        return stringBuilder.toString();
+    }
+
     public String markTaskComplete() {
         String line = "Good. This task is now complete";
         return line;
@@ -41,5 +47,15 @@ public class UI {
         return line;
     }
 
-
+    public String printTaskList(TaskList taskList) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < taskList.getSizeTaskList(); i++) {
+            int indexNum = i + 1;
+            stringBuilder.append(indexNum);
+            stringBuilder.append(". ");
+            stringBuilder.append(taskList.getTask(i).toString());
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }
