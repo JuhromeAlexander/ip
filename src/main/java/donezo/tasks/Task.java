@@ -18,6 +18,10 @@ public class Task {
         return description;
     }
 
+    public boolean getDoneStatus() {
+        return isDone;
+    }
+
     public void setDone(boolean doneStatus) {
         isDone = doneStatus;
     }

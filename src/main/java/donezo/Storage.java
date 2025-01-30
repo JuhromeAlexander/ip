@@ -25,6 +25,10 @@ public class Storage {
         return this.filePath;
     }
 
+    public TaskList getTaskList() {
+        return this.taskListActual;
+    }
+
     public void writeToFile(String filePath, String lineToAdd) throws IOException {
         try (FileWriter fileWriter = new FileWriter(filePath, true)) {
             fileWriter.write(lineToAdd + "\n");
