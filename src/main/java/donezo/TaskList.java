@@ -34,4 +34,18 @@ public class TaskList {
         taskList.remove(ndx);
     }
 
+    public boolean isEmpty() {
+        return taskList.isEmpty();
+    }
+
+    public TaskList findMatchingTasks(String searchTerm) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : taskList) {
+            if (task.getDescription().toLowerCase().contains(searchTerm.toLowerCase())) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
+
 }

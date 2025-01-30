@@ -93,7 +93,17 @@ public class Donezo {
                 }
                 userInput = ui.nextLine();
                 break;
-            
+
+            case "find":
+                FindCommand findCommand = new FindCommand();
+                try {
+                    findCommand.executeCommand(userInput, taskListActual);
+                } catch (DonezoException e) {
+                    ui.printDonezoExceptionMessage(e);
+                }
+                userInput = ui.nextLine();
+                break;
+
             default:
                 ui.printTryCommandAgain();
                 userInput = ui.nextLine();
