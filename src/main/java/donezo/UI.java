@@ -73,7 +73,15 @@ public class UI {
         System.out.println("Sorry boss, can't help you there. Try another command!");
     }
 
-    public String printTaskList(TaskList taskList) {
+    public void printTaskNotFound() {
+        System.out.println("Hey boss, that task doesn't exist in your list! Maybe you misspelled it?");
+    }
+
+    public void printTaskFound() {
+        System.out.println("Hey boss, here are the tasks that matched your search term:");
+    }
+
+    public void printTaskList(TaskList taskList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
             int indexNum = i + 1;
@@ -82,7 +90,7 @@ public class UI {
             stringBuilder.append(taskList.getTask(i).toString());
             stringBuilder.append("\n");
         }
-        return stringBuilder.toString();
+        System.out.println(stringBuilder);
     }
 
     public void genericErrorMsg() {
