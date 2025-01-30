@@ -6,7 +6,14 @@ import donezo.tasks.Event;
 import java.io.IOException;
 
 public class EventCommand extends Command {
-
+    /**
+     * Executes the "event" command by extracting the task description, the from field and the to field
+     * creating an Event task, and adding it to the given task list
+     *
+     * @param userInput the full command input from the user
+     * @param taskList the task list where the deadline task will be added
+     * @throws DonezoException if the input is missing the "/from", "/to" arguments or its contents and task description
+     */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
         if (!userInput.contains("/from")) {

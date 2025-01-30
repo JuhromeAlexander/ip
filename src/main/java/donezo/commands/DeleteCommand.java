@@ -5,6 +5,16 @@ import donezo.exceptions.DonezoException;
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
+
+    /**
+     * Executes the "delete" command by removing a specified task from the task list
+     * and updating the task list and file storage accordingly.
+     * Throws an exception if the task index provided is invalid.
+     *
+     * @param userInput the full command input from the user, including the task index to be deleted
+     * @param taskList the task list containing the tasks to be managed
+     * @throws DonezoException if the task index is invalid or if an error occurs while updating the storage file
+     */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException{
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;

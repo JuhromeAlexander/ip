@@ -4,6 +4,10 @@ import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
 import java.util.Scanner;
 
+/**
+ * A utility class for managing interaction between the program and the user.
+ * Provides methods for taking input, displaying messages, and interacting with tasks.
+ */
 public class UI {
     private final Scanner input;
     private final String logo = " ______   _______  _        _______  _______  _______ \n" +
@@ -73,6 +77,16 @@ public class UI {
         System.out.println("Sorry boss, can't help you there. Try another command!");
     }
 
+    /**
+     * Constructs a formatted string representing all tasks in the specified TaskList.
+     * Each task in the list is prefixed with its index (starting from 1) and includes
+     * its string representation as provided by the Task class's toString method, with
+     * individual tasks separated by newline characters.
+     *
+     * @param taskList The TaskList containing the tasks to be printed.
+     * @return A string representation of all tasks in the TaskList, where each task is
+     *         prefixed by its index and separated by a newline.
+     */
     public String printTaskList(TaskList taskList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
