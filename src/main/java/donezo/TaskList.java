@@ -43,6 +43,17 @@ public class TaskList {
         return taskList.isEmpty();
     }
 
+    /**
+     * Searches for tasks in the current task list that contain a specific search term
+     * (case-insensitive) in their description and returns a new TaskList containing
+     * the matching tasks.
+     *
+     * @param searchTerm The term to search for within the task descriptions.
+     *                   This search is case-insensitive, meaning "Task" and "task"
+     *                   would be treated as equivalent.
+     * @return A TaskList containing all tasks that match the specified search term.
+     *         If no tasks match, an empty TaskList is returned.
+     */
     public TaskList findMatchingTasks(String searchTerm) {
         TaskList matchingTasks = new TaskList();
         for (Task task : taskList) {
