@@ -7,6 +7,17 @@ import java.time.format.DateTimeFormatter;
 
 public class ParserStorage {
 
+    /**
+     * Parses a line of input containing a "deadline" task, extracts the description,
+     * deadline date and time, and completion status from the line, creates a Deadline
+     * object, and adds it to the specified storage.
+     *
+     * @param lineToParse The string containing the serialized representation of a
+     *                    "deadline" task, including its description, deadline time,
+     *                    and completion status.
+     * @param storage The storage object to which the newly created "deadline" task
+     *                will be added.
+     */
     public static void parseDeadline(String lineToParse, Storage storage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
         int ndxDescriptionEnd = lineToParse.indexOf(" (by: ");
@@ -32,6 +43,15 @@ public class ParserStorage {
         storage.addTask(deadlineTask);
     }
 
+    /**
+     * Parses a line of input containing a "todo" task, extracts the description
+     * and completion status from the line, creates a Todo object, and adds it to
+     * the specified storage.
+     *
+     * @param lineToParse The string containing the serialized representation of
+     *                    a "todo" task, including its description and completion status.
+     * @param storage The storage object to which the newly created "todo" task will be added.
+     */
     public static void parseToDo(String lineToParse, Storage storage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
         String description = lineToParse.substring(ndxDescriptionStart);
@@ -44,6 +64,17 @@ public class ParserStorage {
         storage.addTask(todoTask);
     }
 
+    /**
+     * Parses a line of input containing an event task, extracts relevant details
+     * such as description, start time, end time, and completion status, creates
+     * an Event object, and adds it to the provided storage.
+     *
+     * @param lineToParse The string containing the serialized representation of
+     *                    an event task, including its description, time range,
+     *                    and completion status.
+     * @param storage     The storage object to which the newly created Event
+     *                    task will be added.
+     */
     public static void parseEvent(String lineToParse, Storage storage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
         int ndxDescriptionEnd = lineToParse.indexOf("(from: ");

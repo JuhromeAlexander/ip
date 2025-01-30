@@ -11,11 +11,13 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Storage {
+    //private ArrayList<Task> taskList;
     private String filePath;
     private TaskList taskListActual;
 
     public Storage(String fileName) {
         filePath = "data/" + fileName;
+        //taskList = new ArrayList<Task>();
         taskListActual = new TaskList();
     }
 
@@ -51,6 +53,7 @@ public class Storage {
     public TaskList loadFromFile() throws DonezoException {
         try {
             checkFileExist();
+
             List<String> tasks = Files.readAllLines(Paths.get(this.filePath));
             for (int i = 0; i < tasks.size(); i++) {
                 String line = tasks.get(i);

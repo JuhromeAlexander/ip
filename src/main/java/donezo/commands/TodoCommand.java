@@ -6,6 +6,15 @@ import donezo.tasks.Todo;
 import java.io.IOException;
 
 public class TodoCommand extends Command {
+    /**
+     * Executes the "todo" command by extracting a task description from the user input,
+     * creating a Todo task, and adding it to the given task list.
+     * It also handles storage updates and provides appropriate feedback to the user.
+     *
+     * @param userInput the full command input from the user, including the task description
+     * @param taskList the task list where the new todo task will be added
+     * @throws DonezoException if the task description is missing or empty
+     */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
         String todoDesc = userInput.substring(5).trim();    

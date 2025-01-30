@@ -81,6 +81,13 @@ public class UI {
         System.out.println("Hey boss, here are the tasks that matched your search term:");
     }
 
+    /**
+     * Prints the list of tasks in the given TaskList object. Each task is displayed
+     * with its index in the list, starting from 1, followed by its string representation.
+     * This method outputs the entire task list to the standard output.
+     *
+     * @param taskList The TaskList object containing the tasks to be printed.
+     */
     public void printTaskList(TaskList taskList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
