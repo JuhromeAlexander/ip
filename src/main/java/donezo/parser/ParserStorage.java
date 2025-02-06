@@ -1,10 +1,19 @@
 package donezo.parser;
 
-import donezo.Storage;
-import donezo.tasks.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import donezo.Storage;
+import donezo.tasks.Deadline;
+import donezo.tasks.Event;
+import donezo.tasks.Todo;
+
+/**
+ * The ParserStorage class is responsible for parsing task-related input strings
+ * from storage files and converting them into corresponding Task objects.
+ * It handles Deadline, Todo, and Event tasks, extracting relevant details such as
+ * descriptions, completion statuses, and timestamps, and storing them appropriately.
+ */
 public class ParserStorage {
 
     /**
@@ -57,7 +66,7 @@ public class ParserStorage {
         String description = lineToParse.substring(ndxDescriptionStart);
         Todo todoTask = new Todo(description);
 
-        if (lineToParse.contains("[X]")) {   
+        if (lineToParse.contains("[X]")) {
             todoTask.setDone(true);
         }
 

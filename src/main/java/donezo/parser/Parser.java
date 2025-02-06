@@ -2,6 +2,10 @@ package donezo.parser;
 
 import donezo.Storage;
 
+/**
+ * The Parser class is responsible for interpreting and processing input lines
+ * from storage files and user commands
+ */
 public class Parser {
     /**
      * Parses a line of input from a storage file and delegates the parsing
