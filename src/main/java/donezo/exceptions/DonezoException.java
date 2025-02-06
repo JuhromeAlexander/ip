@@ -1,6 +1,9 @@
 package donezo.exceptions;
 
-public class DonezoException extends Exception{
+/**
+ * The DonezoException class handles exceptions faced in Donezo
+ */
+public class DonezoException extends Exception {
     /**
      * Constructs a new DonezoException with the specified detail message.
      *
