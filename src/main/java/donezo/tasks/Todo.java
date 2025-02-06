@@ -1,6 +1,9 @@
 package donezo.tasks;
 
-public class Todo extends Task{
+/**
+ * Represents an Todo type of task that extends the Task class.
+ */
+public class Todo extends Task {
     
     /**
      * Constructs a new Todo object with the specified description.

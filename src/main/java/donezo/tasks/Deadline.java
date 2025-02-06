@@ -9,11 +9,11 @@ import java.time.format.DateTimeFormatter;
  * This class includes an additional datetime field representing the deadline for the task.
  * The deadline is stored as a LocalDateTime instance.
  */
-public class Deadline extends Task{
-    protected LocalDateTime by;
+public class Deadline extends Task {
+    static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    static final DateTimeFormatter OUTPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a");
 
-    protected static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    protected static final DateTimeFormatter OUTPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a");
+    protected LocalDateTime by;
 
     /**
      * Constructs a new Deadline object with the specified description and deadline date/time.
