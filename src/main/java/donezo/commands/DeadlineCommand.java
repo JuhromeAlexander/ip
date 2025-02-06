@@ -1,10 +1,15 @@
-package  donezo.commands;
+package donezo.commands;
+
+import java.io.IOException;
 
 import donezo.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Deadline;
-import java.io.IOException;
 
+/**
+ * Represents a Deadline command that can be executed within the application.
+ * This class serves as a base for specific command implementations,
+ */
 public class DeadlineCommand extends Command {
 
     /**
@@ -20,8 +25,8 @@ public class DeadlineCommand extends Command {
         if (!userInput.contains("/by")) {
             throw new DonezoException("Hey boss, the '/by' argument ain't here. Add it in!");
         }
-        
-        String deadlineDescription = 
+
+        String deadlineDescription =
                 userInput.substring(userInput.indexOf("deadline") + 9, userInput.indexOf("/by")).trim();
         if (deadlineDescription.isBlank()) {
             throw new DonezoException(
@@ -44,5 +49,4 @@ public class DeadlineCommand extends Command {
             ui.printUnableToSaveTaskFile();
         }
     }
-    
 }

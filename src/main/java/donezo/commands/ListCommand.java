@@ -1,7 +1,11 @@
-package  donezo.commands;
+package donezo.commands;
 
 import donezo.TaskList;
 
+/**
+ * Represents a List command that can be executed within the application.
+ * This class serves as a base for specific command implementations,
+ */
 public class ListCommand extends Command {
     /**
      * Executes the "list" command by printing all the tasks in the task list.

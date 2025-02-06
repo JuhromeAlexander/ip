@@ -1,10 +1,15 @@
-package  donezo.commands;
+package donezo.commands;
+
+import java.io.IOException;
 
 import donezo.TaskList;
 import donezo.tasks.Task;
-import java.io.IOException;
 
-public class UnmarkCommand extends Command{
+/**
+ * Represents an Unmark command that can be executed within the application.
+ * This class serves as a base for specific command implementations,
+ */
+public class UnmarkCommand extends Command {
 
     /**
      * Executes the "unmark" command by marking a specified task as incomplete

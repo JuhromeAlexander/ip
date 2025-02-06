@@ -10,7 +10,7 @@ import donezo.exceptions.DonezoException;
  * This class serves as a base for specific command implementations,
  * enforcing a structure for executing commands.
  */
-public abstract  class Command {
+public abstract class Command {
     protected UI ui = new UI();
     protected Storage storage = new Storage("tasks.txt");
 
