@@ -1,6 +1,13 @@
 package donezo;
 
-import donezo.commands.*;
+import donezo.commands.DeadlineCommand;
+import donezo.commands.DeleteCommand;
+import donezo.commands.EventCommand;
+import donezo.commands.FindCommand;
+import donezo.commands.ListCommand;
+import donezo.commands.MarkCommand;
+import donezo.commands.TodoCommand;
+import donezo.commands.UnmarkCommand;
 import donezo.exceptions.DonezoException;
 import donezo.parser.Parser;
 
@@ -38,7 +45,7 @@ public class Donezo {
      * of handling these errors.
      *
      * @throws DonezoException if an error occurs while loading the task list from the file
-     * or during specific command executions that involve invalid task operations.
+     *     or during specific command executions that involve invalid task operations.
      */
     private void run() throws DonezoException {
         UI ui = new UI();

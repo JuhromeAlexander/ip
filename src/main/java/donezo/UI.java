@@ -1,19 +1,24 @@
 package donezo;
 
-import donezo.exceptions.DonezoException;
-import donezo.tasks.Task;
 import java.util.Scanner;
 
+import donezo.exceptions.DonezoException;
+import donezo.tasks.Task;
+
+/**
+ * The UI class handles user interactions, including input and output operations.
+ * It provides methods for displaying messages and handling user commands.
+ */
 public class UI {
     private final Scanner input;
-    private final String logo = " ______   _______  _        _______  _______  _______ \n" +
-    "(  __  \\ (  ___  )( (    /|(  ____ \\/ ___   )(  ___  )\n" +
-    "| (  \\  )| (   ) ||  \\  ( || (    \\/\\/   )  || (   ) |\n" +
-    "| |   ) || |   | ||   \\ | || (__        /   )| |   | |\n" +
-    "| |   | || |   | || (\\ \\) ||  __)      /   / | |   | |\n" +
-    "| |   ) || |   | || | \\   || (        /   /  | |   | |\n" +
-    "| (__/  )| (___) || )  \\  || (____/\\ /   (_/\\| (___) |\n" +
-    "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
+    private final String logo = " ______   _______  _        _______  _______  _______ \n"
+            + "(  __  \\ (  ___  )( (    /|(  ____ \\/ ___   )(  ___  )\n"
+            + "| (  \\  )| (   ) ||  \\  ( || (    \\/\\/   )  || (   ) |\n"
+            + "| |   ) || |   | ||   \\ | || (__        /   )| |   | |\n"
+            + "| |   | || |   | || (\\ \\) ||  __)      /   / | |   | |\n"
+            + "| |   ) || |   | || | \\   || (        /   /  | |   | |\n"
+            + "| (__/  )| (___) || )  \\  || (____/\\ /   (_/\\| (___) |\n"
+            + "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
 
     public UI() {
         this.input = new Scanner(System.in);
@@ -27,6 +32,11 @@ public class UI {
         input.close();
     }
 
+    /**
+     * Generates a greeting message for the user.
+     *
+     * @return A greeting message as a String.
+     */
     public String greetUser() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Hello from \n");
@@ -35,6 +45,11 @@ public class UI {
         return stringBuilder.toString();
     }
 
+    /**
+     * Generates a farewell message for the user.
+     *
+     * @return A farewell message as a String.
+     */
     public String sayBye() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Peace out. Hope to see you again soon!\n");
@@ -46,7 +61,7 @@ public class UI {
     }
 
     public void unmarkTaskComplete() {
-       System.out.println("Really? You need to finish this soon. Marked as Undone");
+        System.out.println("Really? You need to finish this soon. Marked as Undone");
     }
 
     public void printNumTasks(int numTasks) {
