@@ -3,6 +3,10 @@ package donezo.commands;
 import donezo.TaskList;
 import donezo.exceptions.DonezoException;
 
+/**
+ * Represents a Find command that can be executed within the application.
+ * This class serves as a base for specific command implementations,
+ */
 public class FindCommand extends Command {
 
     /**

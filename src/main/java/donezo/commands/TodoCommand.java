@@ -1,10 +1,15 @@
-package  donezo.commands;
+package donezo.commands;
+
+import java.io.IOException;
 
 import donezo.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Todo;
-import java.io.IOException;
 
+/**
+ * Represents a Todo command that can be executed within the application.
+ * This class serves as a base for specific command implementations,
+ */
 public class TodoCommand extends Command {
     /**
      * Executes the "todo" command by extracting a task description from the user input,
@@ -17,7 +22,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
-        String todoDesc = userInput.substring(5).trim();    
+        String todoDesc = userInput.substring(5).trim();
         if (todoDesc.isBlank()) {
             throw new DonezoException("Hey boss, the description for this task can't be empty!");
         }

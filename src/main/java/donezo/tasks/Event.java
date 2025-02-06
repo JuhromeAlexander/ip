@@ -10,11 +10,12 @@ import java.time.format.DateTimeFormatter;
  * parsed from and formatted to strings using predefined date/time formatters.
  */
 public class Event extends Task {
-    
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+
     protected static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     protected static final DateTimeFormatter OUTPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a");
+
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructs a new Event object with the specified description, start time, and end time.
@@ -66,7 +67,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + getFrom().format(OUTPUT_TIME_FORMATTER) 
+        return "[E]" + super.toString() + " (from: " + getFrom().format(OUTPUT_TIME_FORMATTER)
                 + " to: " + getTo().format(OUTPUT_TIME_FORMATTER) + ")";
     }
 }

@@ -1,18 +1,16 @@
 package donezo.parser;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import donezo.Storage;
 import donezo.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
 import donezo.tasks.Todo;
-
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class ParserStorageTest {
 

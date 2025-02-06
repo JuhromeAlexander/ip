@@ -1,10 +1,15 @@
-package  donezo.commands;
+package donezo.commands;
+
+import java.io.IOException;
 
 import donezo.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Event;
-import java.io.IOException;
 
+/**
+ * Represents an Event command that can be executed within the application.
+ * This class serves as a base for specific command implementations,
+ */
 public class EventCommand extends Command {
     /**
      * Executes the "event" command by extracting the task description, the from field and the to field
@@ -23,14 +28,14 @@ public class EventCommand extends Command {
             throw new DonezoException("Hey boss, the '/to' argument ain't here. Add it in!");
         }
                         
-        String eventDescription = 
+        String eventDescription =
                 userInput.substring(userInput.indexOf("event") + 6, userInput.indexOf("/from")).trim();
         if (eventDescription.isBlank()) {
             throw new DonezoException(
                     "Hey boss, I think you're forgetting the description this deadline is for. Add it in!");
         }
         
-        String eventFromArgs = 
+        String eventFromArgs =
                 userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to")).trim();
         if (eventFromArgs.isBlank()) {
             throw new DonezoException("Hey boss, I ain't no mind reader, add the content for the /from field.");

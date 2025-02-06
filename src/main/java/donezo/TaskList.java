@@ -1,7 +1,8 @@
 package donezo;
 
-import donezo.tasks.*;
 import java.util.ArrayList;
+
+import donezo.tasks.Task;
 
 /**
  * Represents a list of tasks.

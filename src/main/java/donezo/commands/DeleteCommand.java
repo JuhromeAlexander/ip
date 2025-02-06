@@ -1,9 +1,15 @@
-package  donezo.commands;
+package donezo.commands;
+
+import java.io.IOException;
 
 import donezo.TaskList;
 import donezo.exceptions.DonezoException;
-import java.io.IOException;
 
+
+/**
+ * Represents a Delete command that can be executed within the application.
+ * This class serves as a base for specific command implementations,
+ */
 public class DeleteCommand extends Command {
 
     /**
@@ -16,7 +22,7 @@ public class DeleteCommand extends Command {
      * @throws DonezoException if the task index is invalid or if an error occurs while updating the storage file
      */
     @Override
-    public void executeCommand(String userInput, TaskList taskList) throws DonezoException{
+    public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
         if (taskNdx > taskList.getSizeTaskList()) {
             throw new DonezoException(
@@ -27,7 +33,7 @@ public class DeleteCommand extends Command {
         taskList.removeTask(taskNdx);
 
         try {
-            storage.deleteFromFile(storage.getFilePath(), taskList);      
+            storage.deleteFromFile(storage.getFilePath(), taskList);
         } catch (IOException e) {
             throw new DonezoException("Whoops unable to delete file!");
         }
