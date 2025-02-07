@@ -23,13 +23,12 @@ public class UnmarkCommand extends Command {
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
         Task affectedTask = taskList.getTask(taskNdx);
         affectedTask.setDone(false);
-        ui.unmarkTaskComplete();
-        System.out.println(affectedTask.toString());
+        ui.unmarkTaskComplete(affectedTask);
 
         try {
             storage.deleteFromFile(storage.getFilePath(), taskList);
         } catch (IOException e) {
-            ui.genericErrorMsg();
+            ui.printGenericErrorMsg();
         }
     }
     

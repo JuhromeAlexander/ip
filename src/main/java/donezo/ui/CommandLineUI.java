@@ -1,15 +1,16 @@
-package donezo;
+package donezo.ui;
 
 import java.util.Scanner;
 
+import donezo.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
 
 /**
- * The UI class handles user interactions, including input and output operations.
+ * The CommandLineUI class handles user interactions, including input and output operations.
  * It provides methods for displaying messages and handling user commands.
  */
-public class UI {
+public class CommandLineUI implements UI {
     private final Scanner input;
     private final String logo = " ______   _______  _        _______  _______  _______ \n"
             + "(  __  \\ (  ___  )( (    /|(  ____ \\/ ___   )(  ___  )\n"
@@ -20,7 +21,7 @@ public class UI {
             + "| (__/  )| (___) || )  \\  || (____/\\ /   (_/\\| (___) |\n"
             + "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
 
-    public UI() {
+    public CommandLineUI() {
         this.input = new Scanner(System.in);
     }
 
@@ -37,6 +38,7 @@ public class UI {
      *
      * @return A greeting message as a String.
      */
+    @Override
     public String greetUser() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Hello from \n");
@@ -50,48 +52,59 @@ public class UI {
      *
      * @return A farewell message as a String.
      */
+    @Override
     public String sayBye() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Peace out. Hope to see you again soon!\n");
         return stringBuilder.toString();
     }
 
-    public void markTaskComplete() {
-        System.out.println("Good. This task is now complete");
+    @Override
+    public void markTaskComplete(Task task) {
+        System.out.println("Good. This task is now complete:\n" + task.toString());
     }
 
-    public void unmarkTaskComplete() {
-        System.out.println("Really? You need to finish this soon. Marked as Undone");
+    @Override
+    public void unmarkTaskComplete(Task task) {
+        System.out.println("Really? You need to finish this soon. Marked this task as undone:\n" + task.toString());
     }
 
+    @Override
     public void printNumTasks(int numTasks) {
         System.out.println("Now you have " + numTasks + " tasks in your list.");
     }
 
+    @Override
     public void printDeleteTask(Task task) {
         System.out.println("Aight boss, I have removed the following task for you:\n" + task.toString());
     }
 
+    @Override
     public void printAddTask(Task task) {
         System.out.println("Got it. This task has been added to your list:\n" + task.toString());
     }
 
+    @Override
     public void printDonezoExceptionMessage(DonezoException e) {
         System.out.println(e.getMessage());
     }
 
+    @Override
     public void printUnableToSaveTaskFile() {
         System.out.println("Unable to save task to file!");
     }
 
+    @Override
     public void printTryCommandAgain() {
         System.out.println("Sorry boss, can't help you there. Try another command!");
     }
 
+    @Override
     public void printTaskNotFound() {
         System.out.println("Hey boss, that task doesn't exist in your list! Maybe you misspelled it?");
     }
 
+    @Override
     public void printTaskFound() {
         System.out.println("Hey boss, here are the tasks that matched your search term:");
     }
@@ -103,6 +116,7 @@ public class UI {
      *
      * @param taskList The TaskList object containing the tasks to be printed.
      */
+    @Override
     public void printTaskList(TaskList taskList) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
@@ -115,7 +129,8 @@ public class UI {
         System.out.println(stringBuilder);
     }
 
-    public void genericErrorMsg() {
+    @Override
+    public void printGenericErrorMsg() {
         System.out.println("Oooops! Something went wrong!");
     }
 }

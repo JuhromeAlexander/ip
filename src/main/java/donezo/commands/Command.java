@@ -2,8 +2,9 @@ package donezo.commands;
 
 import donezo.Storage;
 import donezo.TaskList;
-import donezo.UI;
+import donezo.ui.CommandLineUI;
 import donezo.exceptions.DonezoException;
+import donezo.ui.UI;
 
 /**
  * Represents an abstract command that can be executed within the application.
@@ -11,8 +12,19 @@ import donezo.exceptions.DonezoException;
  * enforcing a structure for executing commands.
  */
 public abstract class Command {
-    protected UI ui = new UI();
-    protected Storage storage = new Storage("tasks.txt");
+//    protected CommandLineUI commandLineUi = new CommandLineUI();
+//    protected Storage storage = new Storage("tasks.txt");
+
+    protected UI ui;
+    protected Storage storage;
+
+    public void setUi(UI ui) {
+        this.ui = ui;
+    }
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
 
     /**
      * Executes the specified command based on the user's input and interacts
