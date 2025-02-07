@@ -5,6 +5,8 @@ import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
 
 public interface UI {
+    void closeInput();
+    String nextLine();
     String greetUser();
     String sayBye();
     void markTaskComplete(Task task);

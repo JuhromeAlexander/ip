@@ -16,6 +16,16 @@ public class GraphicalUI implements UI {
 
     private StringBuilder outputBuffer = new StringBuilder();
 
+    @Override
+    public String nextLine() {
+        return "";
+    }
+
+    @Override
+    public void closeInput() {
+
+    }
+
     /**
      * Generates a greeting message for the user.
      *

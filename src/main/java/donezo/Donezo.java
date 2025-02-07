@@ -10,6 +10,9 @@ import donezo.commands.TodoCommand;
 import donezo.commands.UnmarkCommand;
 import donezo.exceptions.DonezoException;
 import donezo.parser.Parser;
+import donezo.ui.CommandLineUI;
+import donezo.ui.GraphicalUI;
+import donezo.ui.UI;
 
 /**
  * The Donezo class represents a command-line task manager application.
@@ -18,132 +21,149 @@ import donezo.parser.Parser;
  *
  */
 public class Donezo {
-    public static void main(String[] args) {
-        Donezo donezo = new Donezo();
-        try {
-            donezo.run();
-        } catch (DonezoException e) {
-            System.out.println(e);
-        }
+
+    private Parser parser;
+    private Storage storage;
+    private TaskList taskList;
+    private UI ui;
+    private int numTasks;
+
+    public Donezo(UI ui) throws DonezoException {
+        this.ui = ui;
+        parser = new Parser();
+        storage = new Storage("tasks.txt");
+        taskList = storage.loadFromFile();
+        numTasks = taskList.getSizeTaskList();
     }
 
     /**
-     * Executes the primary workflow of the application. This method initializes key components
-     * required for the application's operations, including the user interface (UI), storage,
-     * task list, and command parser. The main loop manages user inputs and delegates actions
-     * to the appropriate commands, enabling tasks to be listed, marked/unmarked, added, or deleted.
+     * Processes the user input command and returns a response string.
+     * <p>
+     * If the {@code userInput} equals "bye", this method will invoke {@code ui.closeInput()}
+     * and return the farewell message from {@code ui.sayBye()}. For any other input, the method
+     * uses the {@code parser} to determine the command type and creates the corresponding command
+     * instance. It then injects the current {@code ui} and {@code storage} instances into the command,
+     * executes the command, and performs any necessary updates (such as adjusting the task count and
+     * printing the number of tasks).
+     * </p>
      *
-     * The workflow continues until the user inputs "bye", at which point the application
-     * terminates gracefully by closing resources and displaying an exit message.
-     *
-     * Commands are classified into task-related operations such as "list", "mark", "unmark",
-     * "delete", "deadline", "event", and "todo". Each command processes user input for the
-     * corresponding task operation. Unrecognized commands prompt the user to enter a valid command.
-     *
-     * A DonezoException may be thrown for invalid operations, particularly during task additions
-     * (deadline, event, todo) or task deletions. Exception messages are displayed to the user as part
-     * of handling these errors.
-     *
-     * @throws DonezoException if an error occurs while loading the task list from the file
-     *     or during specific command executions that involve invalid task operations.
+     * @param userInput the full command input provided by the user.
+     * @return a response string generated from processing the command; if the input is "bye", returns the
+     *         farewell message; if a {@code DonezoException} occurs, returns the exception message; otherwise,
+     *         returns the captured output if in graphical mode, or a default string ("") for non-graphical mode.
      */
-    private void run() throws DonezoException {
-        UI ui = new UI();
-        Storage storageActual = new Storage("tasks.txt");
-        TaskList taskListActual = storageActual.loadFromFile();
-        Parser parser = new Parser();
-
-        int numTasks = taskListActual.getSizeTaskList();
-
-        System.out.println(ui.greetUser());
-        String userInput = ui.nextLine();
-        
-        while (!userInput.equals("bye")) {
-            String taskType = parser.parseCommand(userInput);
-            switch (taskType.toLowerCase()) {
+    public String getResponse(String userInput) {
+        if (userInput.equals("bye")) {
+            if (ui instanceof GraphicalUI) {
+                ui.closeInput();
+                ui.sayBye();
+                return ((GraphicalUI) ui).getAndClearOutputBuffer();
+            }
+        }
+        try {
+            String commandType = parser.parseCommand(userInput);
+            switch (commandType.toLowerCase()) {
             case "list":
                 ListCommand listCommand = new ListCommand();
-                listCommand.executeCommand(userInput, taskListActual);
-                userInput = ui.nextLine();
+                listCommand.setUi(ui);
+                listCommand.setStorage(storage);
+                listCommand.executeCommand(userInput, taskList);
                 break;
-            
+
             case "mark":
                 MarkCommand markCommand = new MarkCommand();
-                markCommand.executeCommand(userInput, taskListActual);
-                userInput = ui.nextLine();
+                markCommand.setUi(ui);
+                markCommand.setStorage(storage);
+                markCommand.executeCommand(userInput, taskList);
                 break;
-            
+
             case "unmark":
                 UnmarkCommand unmarkCommand = new UnmarkCommand();
-                unmarkCommand.executeCommand(userInput, taskListActual);
-                userInput = ui.nextLine();
+                unmarkCommand.setUi(ui);
+                unmarkCommand.setStorage(storage);
+                unmarkCommand.executeCommand(userInput, taskList);
                 break;
 
             case "delete":
                 DeleteCommand deleteCommand = new DeleteCommand();
-                try {
-                    deleteCommand.executeCommand(userInput, taskListActual);
-                    numTasks--;
-                    ui.printNumTasks(numTasks);
-                } catch (DonezoException e) {
-                    ui.printDonezoExceptionMessage(e);
-                }
-                userInput = ui.nextLine();
+                deleteCommand.setUi(ui);
+                deleteCommand.setStorage(storage);
+                deleteCommand.executeCommand(userInput, taskList);
+                numTasks--;
+                ui.printNumTasks(numTasks);
                 break;
-            
+
             case "deadline":
                 DeadlineCommand deadlineCommand = new DeadlineCommand();
-                try {
-                    deadlineCommand.executeCommand(userInput, taskListActual);
-                    numTasks++;
-                    ui.printNumTasks(numTasks);
-                } catch (DonezoException e) {
-                    ui.printDonezoExceptionMessage(e);
-                }
-                userInput = ui.nextLine();
+                deadlineCommand.setUi(ui);
+                deadlineCommand.setStorage(storage);
+                deadlineCommand.executeCommand(userInput, taskList);
+                numTasks++;
+                ui.printNumTasks(numTasks);
                 break;
-            
+
             case "event":
                 EventCommand eventCommand = new EventCommand();
-                try {
-                    eventCommand.executeCommand(userInput, taskListActual);
-                    numTasks++;
-                    ui.printNumTasks(numTasks);
-                } catch (DonezoException e) {
-                    ui.printDonezoExceptionMessage(e);
-                }
-                userInput = ui.nextLine();
+                eventCommand.setUi(ui);
+                eventCommand.setStorage(storage);
+                eventCommand.executeCommand(userInput, taskList);
+                numTasks++;
+                ui.printNumTasks(numTasks);
                 break;
 
             case "todo":
                 TodoCommand todoCommand = new TodoCommand();
-                try {
-                    todoCommand.executeCommand(userInput, taskListActual);
-                    numTasks++;
-                    ui.printNumTasks(numTasks);
-                } catch (DonezoException e) {
-                    ui.printDonezoExceptionMessage(e);
-                }
-                userInput = ui.nextLine();
+                todoCommand.setUi(ui);
+                todoCommand.setStorage(storage);
+                todoCommand.executeCommand(userInput, taskList);
+                numTasks++;
+                ui.printNumTasks(numTasks);
                 break;
 
             case "find":
                 FindCommand findCommand = new FindCommand();
-                try {
-                    findCommand.executeCommand(userInput, taskListActual);
-                } catch (DonezoException e) {
-                    ui.printDonezoExceptionMessage(e);
-                }
-                userInput = ui.nextLine();
+                findCommand.setUi(ui);
+                findCommand.setStorage(storage);
+                findCommand.executeCommand(userInput, taskList);
                 break;
 
             default:
                 ui.printTryCommandAgain();
-                userInput = ui.nextLine();
+                break;
             }
+
+            if (ui instanceof GraphicalUI) {
+                return ((GraphicalUI) ui).getAndClearOutputBuffer();
+            }
+
+            return " ";
+
+        } catch (DonezoException e) {
+            return e.getMessage();
         }
+    }
+
+    public void runCLI() throws DonezoException {
+        System.out.println(ui.greetUser());
+        String userInput = ui.nextLine();
+
+        while (!userInput.equals("bye")) {
+            System.out.println(getResponse(userInput));
+            userInput = ui.nextLine();
+        }
+
         System.out.println(ui.sayBye());
         ui.closeInput();
-
     }
+
+    public static void main(String[] args) {
+        try {
+            Donezo donezo = new Donezo(new CommandLineUI());
+            donezo.runCLI();
+        } catch (DonezoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }
