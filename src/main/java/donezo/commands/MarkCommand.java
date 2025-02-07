@@ -23,13 +23,12 @@ public class MarkCommand extends Command {
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
         Task affectedTask = taskList.getTask(taskNdx);
         affectedTask.setDone(true);
-        ui.markTaskComplete();
-        System.out.println(affectedTask.toString());
+        ui.markTaskComplete(affectedTask);
 
         try {
             storage.deleteFromFile(storage.getFilePath(), taskList);
         } catch (IOException e) {
-            ui.genericErrorMsg();
+            ui.printGenericErrorMsg();
         }
     }
     
