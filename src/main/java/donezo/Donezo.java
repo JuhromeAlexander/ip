@@ -15,10 +15,10 @@ import donezo.ui.GraphicalUI;
 import donezo.ui.UI;
 
 /**
- * The Donezo class represents a command-line task manager application.
- * It provides functionality to manage a user's task list, including adding,
- * marking, unmarking, deleting tasks, and listing current tasks.
- *
+ * The Donezo class provides the core backend logic for the application.
+ * It supports both CLI and GUI modes by using an injected UI implementation.
+ * In CLI mode, the main() method runs a command loop; in GUI mode, the getResponse()
+ * method is used to process individual commands.
  */
 public class Donezo {
 
@@ -143,6 +143,16 @@ public class Donezo {
         }
     }
 
+    /**
+     * Returns the greeting message from the UI.
+     * <p>
+     * In GUI mode (when {@code ui} is an instance of {@code GraphicalUI}),
+     * this method calls {@code ui.greetUser()} and returns the captured greeting
+     * from the output buffer. In other cases, an empty string is returned.
+     * </p>
+     *
+     * @return the greeting message if in GUI mode; otherwise an empty string.
+     */
     public String getGreeting() {
         if (ui instanceof GraphicalUI) {
             ui.greetUser();
@@ -152,6 +162,16 @@ public class Donezo {
         return "";
     }
 
+    /**
+     * Runs the application in CLI mode.
+     * <p>
+     * This method prints the greeting message, then enters a loop where it reads
+     * user input from the console and processes each command until the user types "bye".
+     * After "bye" is entered, the farewell message is printed and input is closed.
+     * </p>
+     *
+     * @throws DonezoException if an error occurs during command processing.
+     */
     public void runCLI() throws DonezoException {
         System.out.println(ui.greetUser());
         String userInput = ui.nextLine();
@@ -165,6 +185,11 @@ public class Donezo {
         ui.closeInput();
     }
 
+    /**
+     * The main entry point for running the application in CLI mode.
+     * It creates an instance of Donezo with a CommandLineUI, and then calls runCLI()
+     * to start processing user input from the console.
+     */
     public static void main(String[] args) {
         try {
             Donezo donezo = new Donezo(new CommandLineUI());

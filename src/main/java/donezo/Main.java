@@ -8,6 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * The Main class is the entry point for the JavaFX GUI version of the application.
+ * It extends {@code Application} and is launched by the {@code Launcher} class.
+ * In the {@code start} method, it initializes the backend (Donezo) with a graphical UI,
+ * loads the FXML layout, injects the Donezo instance into the controller, and displays the window.
+ */
 public class Main extends Application {
 
     private Donezo donezo;
