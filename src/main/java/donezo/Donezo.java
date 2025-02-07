@@ -143,6 +143,15 @@ public class Donezo {
         }
     }
 
+    public String getGreeting() {
+        if (ui instanceof GraphicalUI) {
+            ui.greetUser();
+            return ((GraphicalUI) ui).getAndClearOutputBuffer();
+        }
+
+        return "";
+    }
+
     public void runCLI() throws DonezoException {
         System.out.println(ui.greetUser());
         String userInput = ui.nextLine();

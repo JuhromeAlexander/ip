@@ -30,7 +30,9 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setDonezo(Donezo d) {
-        donezo = d;
+        this.donezo = d;
+        String greetingMessage = donezo.getGreeting();
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greetingMessage, dukeImage));
     }
 
     @FXML
