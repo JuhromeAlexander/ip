@@ -22,6 +22,8 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
+        assertCheck(userInput, taskList);
+
         if (!userInput.contains("/by")) {
             throw new DonezoException("Hey boss, the '/by' argument ain't here. Add it in!");
         }

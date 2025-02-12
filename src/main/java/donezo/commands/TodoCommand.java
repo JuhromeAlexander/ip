@@ -22,6 +22,8 @@ public class TodoCommand extends Command {
      */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
+        assertCheck(userInput, taskList);
+
         String todoDesc = userInput.substring(5).trim();
         if (todoDesc.isBlank()) {
             throw new DonezoException("Hey boss, the description for this task can't be empty!");

@@ -21,6 +21,8 @@ public class EventCommand extends Command {
      */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
+        assertCheck(userInput, taskList);
+
         if (!userInput.contains("/from")) {
             throw new DonezoException("Hey boss, the '/from' argument ain't here. Add it in!");
         }
