@@ -20,6 +20,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public void executeCommand(String userInput, TaskList taskList) {
+        assertCheck(userInput, taskList);
+
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
         Task affectedTask = taskList.getTask(taskNdx);
         affectedTask.setDone(true);

@@ -2,7 +2,6 @@ package donezo.commands;
 
 import donezo.Storage;
 import donezo.TaskList;
-import donezo.ui.CommandLineUI;
 import donezo.exceptions.DonezoException;
 import donezo.ui.UI;
 
@@ -12,9 +11,6 @@ import donezo.ui.UI;
  * enforcing a structure for executing commands.
  */
 public abstract class Command {
-//    protected CommandLineUI commandLineUi = new CommandLineUI();
-//    protected Storage storage = new Storage("tasks.txt");
-
     protected UI ui;
     protected Storage storage;
 
@@ -24,6 +20,13 @@ public abstract class Command {
 
     public void setStorage(Storage storage) {
         this.storage = storage;
+    }
+
+    public void assertCheck(String userInput, TaskList taskList) {
+        assert ui != null;
+        assert storage != null;
+        assert userInput != null;
+        assert taskList != null;
     }
 
     /**

@@ -15,6 +15,8 @@ public class ListCommand extends Command {
      */
     @Override
     public void executeCommand(String userInput, TaskList taskList) {
+        assertCheck(userInput, taskList);
+
         ui.printTaskList(taskList);
     }
     
