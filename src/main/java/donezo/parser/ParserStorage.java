@@ -30,10 +30,14 @@ public class ParserStorage {
     public static void parseDeadline(String lineToParse, Storage storage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
         int ndxDescriptionEnd = lineToParse.indexOf(" (by: ");
+        assert ndxDescriptionStart > 0;
+        assert ndxDescriptionEnd > 0;
         String description = lineToParse.substring(ndxDescriptionStart, ndxDescriptionEnd);
 
         int ndxByStart = lineToParse.indexOf("(by: ") + 5;
         int ndxByEnd = lineToParse.lastIndexOf(')');
+        assert ndxByStart > 0;
+        assert ndxByEnd > 0;
         String by = lineToParse.substring(ndxByStart, ndxByEnd);
 
         // DateTimeFormatters for Saved Deadlines in the Task File
@@ -63,6 +67,7 @@ public class ParserStorage {
      */
     public static void parseToDo(String lineToParse, Storage storage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
+        assert ndxDescriptionStart > 0;
         String description = lineToParse.substring(ndxDescriptionStart);
         Todo todoTask = new Todo(description);
 
@@ -87,14 +92,20 @@ public class ParserStorage {
     public static void parseEvent(String lineToParse, Storage storage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
         int ndxDescriptionEnd = lineToParse.indexOf("(from: ");
+        assert ndxDescriptionStart > 0;
+        assert ndxDescriptionEnd > 0;
         String description = lineToParse.substring(ndxDescriptionStart, ndxDescriptionEnd).trim();
 
         int ndxFromStart = lineToParse.indexOf("(from: ") + 7;
         int ndxFromEnd = lineToParse.indexOf(" to: ");
+        assert ndxFromStart > 0;
+        assert ndxFromEnd > 0;
         String from = lineToParse.substring(ndxFromStart, ndxFromEnd).trim();
 
         int ndxToStart = lineToParse.indexOf("to: ") + 4;
         int ndxToEnd = lineToParse.lastIndexOf(')');
+        assert ndxToStart > 0;
+        assert ndxToEnd > 0;
         String to = lineToParse.substring(ndxToStart, ndxToEnd);
 
         // DateTimeFormatters for Saved Events in the Task File

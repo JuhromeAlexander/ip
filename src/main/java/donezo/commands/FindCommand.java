@@ -19,6 +19,8 @@ public class FindCommand extends Command {
      */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
+        assertCheck(userInput, taskList);
+
         String searchTerm = userInput.substring(4).trim();
 
         if (searchTerm.isBlank()) {
