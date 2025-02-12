@@ -23,6 +23,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
+        assertCheck(userInput, taskList);
+
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
         if (taskNdx > taskList.getSizeTaskList()) {
             throw new DonezoException(
