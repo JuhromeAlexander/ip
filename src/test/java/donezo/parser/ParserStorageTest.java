@@ -22,7 +22,7 @@ public class ParserStorageTest {
         ParserStorage.parseToDo(input, storage);
 
         TaskList taskList = storage.getTaskList();
-        ArrayList<Task> tasks = taskList.getTaskList();
+        ArrayList<Task> tasks = taskList.getTasks();
 
         assertEquals(1, tasks.size());
         assertInstanceOf(Todo.class, tasks.get(0));

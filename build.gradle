@@ -44,7 +44,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "donezo"
+    archiveBaseName = "donezoCLI"
     archiveClassifier = null
 }
 
