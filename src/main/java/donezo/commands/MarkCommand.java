@@ -13,7 +13,7 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the "mark" command by marking a specified task as complete
-     * and updating the corresponding task list and file storage.
+     * and updating the corresponding task list and file taskStorage.
      *
      * @param userInput the full command input from the user, including the task index to be marked
      * @param taskList the task list containing the tasks to be updated
@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
         ui.markTaskComplete(affectedTask);
 
         try {
-            storage.deleteFromFile(storage.getFilePath(), taskList);
+            taskStorage.deleteFromFile(taskStorage.getFilePath(), taskList);
         } catch (IOException e) {
             ui.printGenericErrorMsg();
         }

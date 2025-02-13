@@ -53,7 +53,7 @@ public class EventCommand extends Command {
         ui.printAddTask(eventTask);
         
         try {
-            storage.writeToFile(storage.getFilePath(), eventTask.toString());
+            taskStorage.writeToFile(taskStorage.getFilePath(), eventTask.toString());
         } catch (IOException e) {
             ui.printUnableToSaveTaskFile();
         }

@@ -13,7 +13,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the "unmark" command by marking a specified task as incomplete
-     * and updating the corresponding task list and file storage.
+     * and updating the corresponding task list and file taskStorage.
      *
      * @param userInput the full command input from the user, including the task index to be unmarked
      * @param taskList the task list containing the tasks to be updated
@@ -28,7 +28,7 @@ public class UnmarkCommand extends Command {
         ui.unmarkTaskComplete(affectedTask);
 
         try {
-            storage.deleteFromFile(storage.getFilePath(), taskList);
+            taskStorage.deleteFromFile(taskStorage.getFilePath(), taskList);
         } catch (IOException e) {
             ui.printGenericErrorMsg();
         }

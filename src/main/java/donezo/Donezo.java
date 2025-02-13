@@ -10,6 +10,7 @@ import donezo.commands.TodoCommand;
 import donezo.commands.UnmarkCommand;
 import donezo.exceptions.DonezoException;
 import donezo.parser.Parser;
+import donezo.storage.TaskStorage;
 import donezo.ui.CommandLineUI;
 import donezo.ui.GraphicalUI;
 import donezo.ui.UI;
@@ -23,7 +24,7 @@ import donezo.ui.UI;
 public class Donezo {
 
     private Parser parser;
-    private Storage storage;
+    private TaskStorage taskStorage;
     private TaskList taskList;
     private UI ui;
     private int numTasks;
@@ -31,8 +32,8 @@ public class Donezo {
     public Donezo(UI ui) throws DonezoException {
         this.ui = ui;
         parser = new Parser();
-        storage = new Storage("tasks.txt");
-        taskList = storage.loadFromFile();
+        taskStorage = new TaskStorage("tasks.txt");
+        taskList = taskStorage.loadFromFile();
         numTasks = taskList.getSizeTaskList();
     }
 
@@ -42,7 +43,7 @@ public class Donezo {
      * If the {@code userInput} equals "bye", this method will invoke {@code ui.closeInput()}
      * and return the farewell message from {@code ui.sayBye()}. For any other input, the method
      * uses the {@code parser} to determine the command type and creates the corresponding command
-     * instance. It then injects the current {@code ui} and {@code storage} instances into the command,
+     * instance. It then injects the current {@code ui} and {@code taskStorage} instances into the command,
      * executes the command, and performs any necessary updates (such as adjusting the task count and
      * printing the number of tasks).
      * </p>
@@ -66,28 +67,28 @@ public class Donezo {
             case "list":
                 ListCommand listCommand = new ListCommand();
                 listCommand.setUi(ui);
-                listCommand.setStorage(storage);
+                listCommand.setStorage(taskStorage);
                 listCommand.executeCommand(userInput, taskList);
                 break;
 
             case "mark":
                 MarkCommand markCommand = new MarkCommand();
                 markCommand.setUi(ui);
-                markCommand.setStorage(storage);
+                markCommand.setStorage(taskStorage);
                 markCommand.executeCommand(userInput, taskList);
                 break;
 
             case "unmark":
                 UnmarkCommand unmarkCommand = new UnmarkCommand();
                 unmarkCommand.setUi(ui);
-                unmarkCommand.setStorage(storage);
+                unmarkCommand.setStorage(taskStorage);
                 unmarkCommand.executeCommand(userInput, taskList);
                 break;
 
             case "delete":
                 DeleteCommand deleteCommand = new DeleteCommand();
                 deleteCommand.setUi(ui);
-                deleteCommand.setStorage(storage);
+                deleteCommand.setStorage(taskStorage);
                 deleteCommand.executeCommand(userInput, taskList);
                 numTasks--;
                 ui.printNumTasks(numTasks);
@@ -96,7 +97,7 @@ public class Donezo {
             case "deadline":
                 DeadlineCommand deadlineCommand = new DeadlineCommand();
                 deadlineCommand.setUi(ui);
-                deadlineCommand.setStorage(storage);
+                deadlineCommand.setStorage(taskStorage);
                 deadlineCommand.executeCommand(userInput, taskList);
                 numTasks++;
                 ui.printNumTasks(numTasks);
@@ -105,7 +106,7 @@ public class Donezo {
             case "event":
                 EventCommand eventCommand = new EventCommand();
                 eventCommand.setUi(ui);
-                eventCommand.setStorage(storage);
+                eventCommand.setStorage(taskStorage);
                 eventCommand.executeCommand(userInput, taskList);
                 numTasks++;
                 ui.printNumTasks(numTasks);
@@ -114,7 +115,7 @@ public class Donezo {
             case "todo":
                 TodoCommand todoCommand = new TodoCommand();
                 todoCommand.setUi(ui);
-                todoCommand.setStorage(storage);
+                todoCommand.setStorage(taskStorage);
                 todoCommand.executeCommand(userInput, taskList);
                 numTasks++;
                 ui.printNumTasks(numTasks);
@@ -123,7 +124,7 @@ public class Donezo {
             case "find":
                 FindCommand findCommand = new FindCommand();
                 findCommand.setUi(ui);
-                findCommand.setStorage(storage);
+                findCommand.setStorage(taskStorage);
                 findCommand.executeCommand(userInput, taskList);
                 break;
 

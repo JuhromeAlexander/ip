@@ -14,7 +14,7 @@ public class TodoCommand extends Command {
     /**
      * Executes the "todo" command by extracting a task description from the user input,
      * creating a Todo task, and adding it to the given task list.
-     * It also handles storage updates and provides appropriate feedback to the user.
+     * It also handles taskStorage updates and provides appropriate feedback to the user.
      *
      * @param userInput the full command input from the user, including the task description
      * @param taskList the task list where the new todo task will be added
@@ -34,7 +34,7 @@ public class TodoCommand extends Command {
         ui.printAddTask(todoTask);
 
         try {
-            storage.writeToFile(storage.getFilePath(), todoTask.toString());
+            taskStorage.writeToFile(taskStorage.getFilePath(), todoTask.toString());
         } catch (IOException e) {
             ui.printUnableToSaveTaskFile();
         }

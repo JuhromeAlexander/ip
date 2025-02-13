@@ -46,7 +46,7 @@ public class DeadlineCommand extends Command {
         ui.printAddTask(deadlineTask);
                         
         try {
-            storage.writeToFile(storage.getFilePath(), deadlineTask.toString());
+            taskStorage.writeToFile(taskStorage.getFilePath(), deadlineTask.toString());
         } catch (IOException e) {
             ui.printUnableToSaveTaskFile();
         }

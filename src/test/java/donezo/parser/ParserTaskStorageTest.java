@@ -6,22 +6,22 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import donezo.Storage;
+import donezo.storage.TaskStorage;
 import donezo.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
 import donezo.tasks.Todo;
 
-public class ParserStorageTest {
+public class ParserTaskStorageTest {
 
     @Test
     public void parseTodo_validMarkedTodo_success() throws DonezoException {
-        Storage storage = new Storage("dummyFile.txt");
+        TaskStorage taskStorage = new TaskStorage("dummyFile.txt");
 
         String input = "[T][X] testTodo IntelliJ";
-        ParserStorage.parseToDo(input, storage);
+        ParserTaskStorage.parseToDo(input, taskStorage);
 
-        TaskList taskList = storage.getTaskList();
+        TaskList taskList = taskStorage.getTaskList();
         ArrayList<Task> tasks = taskList.getTasks();
 
         assertEquals(1, tasks.size());
