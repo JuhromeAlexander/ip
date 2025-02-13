@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import donezo.storage.TaskStorage;
-import donezo.TaskList;
+import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
 import donezo.tasks.Todo;

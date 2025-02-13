@@ -1,7 +1,8 @@
 package donezo.commands;
 
+import donezo.storage.NoteStorage;
 import donezo.storage.TaskStorage;
-import donezo.TaskList;
+import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.ui.UI;
 
@@ -13,18 +14,24 @@ import donezo.ui.UI;
 public abstract class Command {
     protected UI ui;
     protected TaskStorage taskStorage;
+    protected NoteStorage noteStorage;
 
     public void setUi(UI ui) {
         this.ui = ui;
     }
 
-    public void setStorage(TaskStorage taskStorage) {
+    public void setTaskStorage(TaskStorage taskStorage) {
         this.taskStorage = taskStorage;
+    }
+
+    public void setNoteStorage(NoteStorage noteStorage) {
+        this.noteStorage = noteStorage;
     }
 
     public void assertCheck(String userInput, TaskList taskList) {
         assert ui != null;
         assert taskStorage != null;
+        assert noteStorage != null;
         assert userInput != null;
         assert taskList != null;
     }

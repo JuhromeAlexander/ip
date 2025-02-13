@@ -1,6 +1,6 @@
 package donezo.commands;
 
-import donezo.TaskList;
+import donezo.lists.TaskList;
 
 /**
  * Represents a List command that can be executed within the application.

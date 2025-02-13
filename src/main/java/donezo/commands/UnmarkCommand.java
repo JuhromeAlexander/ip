@@ -2,7 +2,7 @@ package donezo.commands;
 
 import java.io.IOException;
 
-import donezo.TaskList;
+import donezo.lists.TaskList;
 import donezo.tasks.Task;
 
 /**

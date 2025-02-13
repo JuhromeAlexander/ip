@@ -1,6 +1,6 @@
 package donezo.ui;
 
-import donezo.TaskList;
+import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
 

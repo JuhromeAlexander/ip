@@ -2,7 +2,7 @@ package donezo.ui;
 
 import java.util.Scanner;
 
-import donezo.TaskList;
+import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
 
