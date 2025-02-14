@@ -1,8 +1,8 @@
 package donezo.commands;
 
+import donezo.lists.ItemList;
 import donezo.storage.NoteStorage;
 import donezo.storage.TaskStorage;
-import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.ui.UI;
 
@@ -28,12 +28,12 @@ public abstract class Command {
         this.noteStorage = noteStorage;
     }
 
-    public void assertCheck(String userInput, TaskList taskList) {
+    public void assertCheck(String userInput, ItemList itemList) {
         assert ui != null;
         assert taskStorage != null;
         assert noteStorage != null;
         assert userInput != null;
-        assert taskList != null;
+        assert itemList != null;
     }
 
     /**
@@ -43,9 +43,9 @@ public abstract class Command {
      * handle additional behaviors like file taskStorage updates or user feedback.
      *
      * @param userInput the full command input provided by the user
-     * @param taskList the task list containing tasks to be processed or modified
+     * @param itemList  the task list containing tasks to be processed or modified
      * @throws DonezoException if an error occurs while executing the command,
      *                         such as invalid input or missing parameters for the command
      */
-    public abstract void executeCommand(String userInput, TaskList taskList) throws DonezoException;
+    public abstract void executeCommand(String userInput, ItemList itemList) throws DonezoException;
 }

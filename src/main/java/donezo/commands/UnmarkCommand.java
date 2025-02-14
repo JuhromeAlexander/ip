@@ -2,6 +2,7 @@ package donezo.commands;
 
 import java.io.IOException;
 
+import donezo.lists.ItemList;
 import donezo.lists.TaskList;
 import donezo.tasks.Task;
 
@@ -16,19 +17,19 @@ public class UnmarkCommand extends Command {
      * and updating the corresponding task list and file taskStorage.
      *
      * @param userInput the full command input from the user, including the task index to be unmarked
-     * @param taskList the task list containing the tasks to be updated
+     * @param itemList  the task list containing the tasks to be updated
      */
     @Override
-    public void executeCommand(String userInput, TaskList taskList) {
-        assertCheck(userInput, taskList);
+    public void executeCommand(String userInput, ItemList itemList) {
+        assertCheck(userInput, itemList);
 
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
-        Task affectedTask = taskList.getTask(taskNdx);
+        Task affectedTask = (Task) itemList.getItem(taskNdx);
         affectedTask.setDone(false);
         ui.unmarkTaskComplete(affectedTask);
 
         try {
-            taskStorage.deleteFromFile(taskStorage.getFilePath(), taskList);
+            taskStorage.deleteFromFile(taskStorage.getFilePath(), (TaskList) itemList);
         } catch (IOException e) {
             ui.printGenericErrorMsg();
         }

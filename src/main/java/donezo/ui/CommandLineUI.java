@@ -2,6 +2,7 @@ package donezo.ui;
 
 import java.util.Scanner;
 
+import donezo.lists.ItemList;
 import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
@@ -114,10 +115,11 @@ public class CommandLineUI implements UI {
      * with its index in the list, starting from 1, followed by its string representation.
      * This method outputs the entire task list to the standard output.
      *
-     * @param taskList The TaskList object containing the tasks to be printed.
+     * @param itemList The ItemList object containing the tasks to be printed.
      */
     @Override
-    public void printTaskList(TaskList taskList) {
+    public void printTaskList(ItemList itemList) {
+        TaskList taskList = (TaskList) itemList;
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
             int indexNum = i + 1;

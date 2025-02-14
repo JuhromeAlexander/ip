@@ -1,6 +1,6 @@
 package donezo.commands;
 
-import donezo.lists.TaskList;
+import donezo.lists.ItemList;
 
 /**
  * Represents a List command that can be executed within the application.
@@ -11,13 +11,13 @@ public class ListCommand extends Command {
      * Executes the "list" command by printing all the tasks in the task list.
      *
      * @param userInput the full command input from the user
-     * @param taskList the task list containing the tasks to be printed
+     * @param itemList  the task list containing the tasks to be printed
      */
     @Override
-    public void executeCommand(String userInput, TaskList taskList) {
-        assertCheck(userInput, taskList);
+    public void executeCommand(String userInput, ItemList itemList) {
+        assertCheck(userInput, itemList);
 
-        ui.printTaskList(taskList);
+        ui.printTaskList(itemList);
     }
     
 }

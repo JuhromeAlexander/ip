@@ -1,5 +1,6 @@
 package donezo.ui;
 
+import donezo.lists.ItemList;
 import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
@@ -19,6 +20,6 @@ public interface UI {
     void printTryCommandAgain();
     void printTaskNotFound();
     void printTaskFound();
-    void printTaskList(TaskList taskList);
+    void printTaskList(ItemList itemList);
     void printGenericErrorMsg();
 }

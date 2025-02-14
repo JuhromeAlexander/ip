@@ -1,5 +1,6 @@
 package donezo.ui;
 
+import donezo.lists.ItemList;
 import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Task;
@@ -111,10 +112,11 @@ public class GraphicalUI implements UI {
      * with its index in the list, starting from 1, followed by its string representation.
      * This method outputs the entire task list to the output buffer.
      *
-     * @param taskList The TaskList object containing the tasks to be printed.
+     * @param itemList The ItemList object containing the tasks to be printed.
      */
     @Override
-    public void printTaskList(TaskList taskList) {
+    public void printTaskList(ItemList itemList) {
+        TaskList taskList = (TaskList) itemList;
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
             int ndxNum = i + 1;
             outputBuffer.append(ndxNum);
