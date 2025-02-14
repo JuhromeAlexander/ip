@@ -60,7 +60,6 @@ public class TaskStorage implements Storage{
     public void deleteFromFile(String filePath, TaskList taskList) throws IOException {
         File tempFile = new File("data/tempFile.txt");
         try (FileWriter fileWriter = new FileWriter("data/tempFile.txt", true)) {
-            
             for (int i = 0; i < taskList.getSizeTaskList(); i++) {
                 String line = taskList.getTask(i).toString();
                 fileWriter.write(line + "\n");

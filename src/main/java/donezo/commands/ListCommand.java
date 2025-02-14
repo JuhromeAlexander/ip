@@ -16,8 +16,43 @@ public class ListCommand extends Command {
     @Override
     public void executeCommand(String userInput, ItemList itemList) {
         assertCheck(userInput, itemList);
+        String listType = getListType(userInput);
 
-        ui.printTaskList(itemList);
+        switch (listType.toLowerCase()) {
+        case "tasks", "notes":
+            listHelper(listType, itemList);
+            break;
+        }
+
+    }
+
+    public String getListType(String userInput) {
+        String[] tokens = userInput.trim().split("\\s+");
+        String listType = "tasks";
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i].equalsIgnoreCase("/t") || tokens[i].equalsIgnoreCase("/type")) {
+                if (i + 1 < tokens.length) {
+                    listType = tokens[i + 1].toLowerCase();
+                } else {
+                    ui.printGenericErrorMsg();
+                    break;
+                }
+            }
+        }
+
+        return listType;
+    }
+
+    private void listHelper(String listType, ItemList itemList) {
+        if (itemList.isItemListEmpty()) {
+            ui.printGenericErrorMsg();
+        } else {
+            if (listType.equalsIgnoreCase("tasks")) {
+                ui.printTaskList(itemList);
+            } else {
+                ui.printNoteList(itemList);
+            }
+        }
     }
     
 }
