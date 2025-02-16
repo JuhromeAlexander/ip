@@ -1,27 +1,27 @@
 package donezo.parser;
 
-import donezo.Storage;
+import donezo.storage.TaskStorage;
 
 /**
  * The Parser class is responsible for interpreting and processing input lines
- * from storage files and user commands
+ * from taskStorage files and user commands
  */
 public class Parser {
     /**
-     * Parses a line of input from a storage file and delegates the parsing
+     * Parses a line of input from a taskStorage file and delegates the parsing
      * to the appropriate parser method based on the type of task encoded
      * in the line.
      *
      * @param lineToParse The line to be parsed, containing task details and type.
-     * @param storage The storage object to which the parsed task will be added.
+     * @param taskStorage The taskStorage object to which the parsed task will be added.
      */
-    public static void parseStorageLine(String lineToParse, Storage storage) {
+    public static void parseStorageLine(String lineToParse, TaskStorage taskStorage) {
         if (lineToParse.contains("[D]")) {
-            ParserStorage.parseDeadline(lineToParse, storage);
+            ParserTaskStorage.parseDeadline(lineToParse, taskStorage);
         } else if (lineToParse.contains("[T]")) {
-            ParserStorage.parseToDo(lineToParse, storage);
+            ParserTaskStorage.parseToDo(lineToParse, taskStorage);
         } else if (lineToParse.contains("[E]")) {
-            ParserStorage.parseEvent(lineToParse, storage);
+            ParserTaskStorage.parseEvent(lineToParse, taskStorage);
         }
     }
 

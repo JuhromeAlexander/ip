@@ -3,31 +3,31 @@ package donezo.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import donezo.Storage;
+import donezo.storage.TaskStorage;
 import donezo.tasks.Deadline;
 import donezo.tasks.Event;
 import donezo.tasks.Todo;
 
 /**
- * The ParserStorage class is responsible for parsing task-related input strings
- * from storage files and converting them into corresponding Task objects.
+ * The ParserTaskStorage class is responsible for parsing task-related input strings
+ * from taskStorage files and converting them into corresponding Task objects.
  * It handles Deadline, Todo, and Event tasks, extracting relevant details such as
  * descriptions, completion statuses, and timestamps, and storing them appropriately.
  */
-public class ParserStorage {
+public class ParserTaskStorage {
 
     /**
      * Parses a line of input containing a "deadline" task, extracts the description,
      * deadline date and time, and completion status from the line, creates a Deadline
-     * object, and adds it to the specified storage.
+     * object, and adds it to the specified taskStorage.
      *
      * @param lineToParse The string containing the serialized representation of a
      *                    "deadline" task, including its description, deadline time,
      *                    and completion status.
-     * @param storage The storage object to which the newly created "deadline" task
+     * @param taskStorage The taskStorage object to which the newly created "deadline" task
      *                will be added.
      */
-    public static void parseDeadline(String lineToParse, Storage storage) {
+    public static void parseDeadline(String lineToParse, TaskStorage taskStorage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
         int ndxDescriptionEnd = lineToParse.indexOf(" (by: ");
         assert ndxDescriptionStart > 0;
@@ -53,19 +53,19 @@ public class ParserStorage {
             deadlineTask.setDone(true);
         }
 
-        storage.addTask(deadlineTask);
+        taskStorage.addTask(deadlineTask);
     }
 
     /**
      * Parses a line of input containing a "todo" task, extracts the description
      * and completion status from the line, creates a Todo object, and adds it to
-     * the specified storage.
+     * the specified taskStorage.
      *
      * @param lineToParse The string containing the serialized representation of
      *                    a "todo" task, including its description and completion status.
-     * @param storage The storage object to which the newly created "todo" task will be added.
+     * @param taskStorage The taskStorage object to which the newly created "todo" task will be added.
      */
-    public static void parseToDo(String lineToParse, Storage storage) {
+    public static void parseToDo(String lineToParse, TaskStorage taskStorage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
         assert ndxDescriptionStart > 0;
         String description = lineToParse.substring(ndxDescriptionStart);
@@ -75,21 +75,21 @@ public class ParserStorage {
             todoTask.setDone(true);
         }
 
-        storage.addTask(todoTask);
+        taskStorage.addTask(todoTask);
     }
 
     /**
      * Parses a line of input containing an event task, extracts relevant details
      * such as description, start time, end time, and completion status, creates
-     * an Event object, and adds it to the provided storage.
+     * an Event object, and adds it to the provided taskStorage.
      *
      * @param lineToParse The string containing the serialized representation of
      *                    an event task, including its description, time range,
      *                    and completion status.
-     * @param storage     The storage object to which the newly created Event
+     * @param taskStorage     The taskStorage object to which the newly created Event
      *                    task will be added.
      */
-    public static void parseEvent(String lineToParse, Storage storage) {
+    public static void parseEvent(String lineToParse, TaskStorage taskStorage) {
         int ndxDescriptionStart = lineToParse.indexOf("] ") + 2;
         int ndxDescriptionEnd = lineToParse.indexOf("(from: ");
         assert ndxDescriptionStart > 0;
@@ -124,7 +124,7 @@ public class ParserStorage {
             eventTask.setDone(true);
         }
 
-        storage.addTask(eventTask);
+        taskStorage.addTask(eventTask);
     }
 
 }

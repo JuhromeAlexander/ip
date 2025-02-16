@@ -2,7 +2,7 @@ package donezo.commands;
 
 import java.io.IOException;
 
-import donezo.TaskList;
+import donezo.lists.ItemList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Event;
 
@@ -16,12 +16,12 @@ public class EventCommand extends Command {
      * creating an Event task, and adding it to the given task list
      *
      * @param userInput the full command input from the user
-     * @param taskList the task list where the deadline task will be added
+     * @param itemList  the task list where the deadline task will be added
      * @throws DonezoException if the input is missing the "/from", "/to" arguments or its contents and task description
      */
     @Override
-    public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
-        assertCheck(userInput, taskList);
+    public void executeCommand(String userInput, ItemList itemList) throws DonezoException {
+        assertCheck(userInput, itemList);
 
         if (!userInput.contains("/from")) {
             throw new DonezoException("Hey boss, the '/from' argument ain't here. Add it in!");
@@ -49,11 +49,11 @@ public class EventCommand extends Command {
         }
         
         Event eventTask = new Event(eventDescription, eventFromArgs, eventToArgs);
-        taskList.addTask(eventTask);
+        itemList.addItem(eventTask);
         ui.printAddTask(eventTask);
         
         try {
-            storage.writeToFile(storage.getFilePath(), eventTask.toString());
+            taskStorage.writeToFile(taskStorage.getFilePath(), eventTask.toString());
         } catch (IOException e) {
             ui.printUnableToSaveTaskFile();
         }

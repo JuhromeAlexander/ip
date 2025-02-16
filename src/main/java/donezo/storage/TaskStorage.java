@@ -1,4 +1,4 @@
-package donezo;
+package donezo.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,24 +7,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
 import donezo.parser.Parser;
 import donezo.tasks.Task;
 
 /**
- * The Storage class handles reading from and writing to a file to persist task data between sessions.
+ * The TaskStorage class handles reading from and writing to a file to persist task data between sessions.
  */
-public class Storage {
-    //private ArrayList<Task> taskList;
+public class TaskStorage implements Storage{
     private String filePath;
     private TaskList taskListActual;
 
     /**
-     * Constructs a Storage object with a specified filename.
+     * Constructs a TaskStorage object with a specified filename.
      *
      * @param fileName The name of the file used for storing tasks.
      */
-    public Storage(String fileName) {
+    public TaskStorage(String fileName) {
         filePath = "data/" + fileName;
         taskListActual = new TaskList();
     }
@@ -60,7 +60,6 @@ public class Storage {
     public void deleteFromFile(String filePath, TaskList taskList) throws IOException {
         File tempFile = new File("data/tempFile.txt");
         try (FileWriter fileWriter = new FileWriter("data/tempFile.txt", true)) {
-            
             for (int i = 0; i < taskList.getSizeTaskList(); i++) {
                 String line = taskList.getTask(i).toString();
                 fileWriter.write(line + "\n");
@@ -94,12 +93,12 @@ public class Storage {
     }
 
     /**
-     * Ensures the storage file and its parent directory exist.
+     * Ensures the taskStorage file and its parent directory exist.
      * If they do not exist, they are created.
      *
      * @throws IOException If an error occurs while creating the file.
      */
-    private void checkFileExist() throws IOException {
+    public void checkFileExist() throws IOException {
         File expectedFile = new File(getFilePath());
         File expectedFolder = expectedFile.getParentFile();
 

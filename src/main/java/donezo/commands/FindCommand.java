@@ -1,7 +1,8 @@
 package donezo.commands;
 
-import donezo.TaskList;
+import donezo.lists.ItemList;
 import donezo.exceptions.DonezoException;
+import donezo.lists.TaskList;
 
 /**
  * Represents a Find command that can be executed within the application.
@@ -15,11 +16,11 @@ public class FindCommand extends Command {
      * parameter
      *
      * @param userInput a string representing the input of the user
-     * @param taskList the list of tasks that will be used by the command
+     * @param itemList  the list of tasks that will be used by the command
      */
     @Override
-    public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
-        assertCheck(userInput, taskList);
+    public void executeCommand(String userInput, ItemList itemList) throws DonezoException {
+        assertCheck(userInput, itemList);
 
         String searchTerm = userInput.substring(4).trim();
 
@@ -27,13 +28,13 @@ public class FindCommand extends Command {
             throw new DonezoException("Hey boss, can't search if you don't give me a search term!");
         }
 
-        TaskList matchingTasks = taskList.findMatchingTasks(searchTerm);
+        ItemList matchingItems = itemList.findMatchingItems(searchTerm);
 
-        if (matchingTasks.isEmpty()) {
+        if (matchingItems.isItemListEmpty()) {
             ui.printTaskNotFound();
         } else {
             ui.printTaskFound();
-            ui.printTaskList(matchingTasks);
+            ui.printTaskList(matchingItems);
         }
     }
 }

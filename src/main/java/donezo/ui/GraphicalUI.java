@@ -1,7 +1,10 @@
 package donezo.ui;
 
-import donezo.TaskList;
+import donezo.lists.ItemList;
+import donezo.lists.NoteList;
+import donezo.lists.TaskList;
 import donezo.exceptions.DonezoException;
+import donezo.notes.Note;
 import donezo.tasks.Task;
 
 public class GraphicalUI implements UI {
@@ -70,6 +73,13 @@ public class GraphicalUI implements UI {
     }
 
     @Override
+    public void printNumNotes(int numNotes) {
+        outputBuffer.append("Now you have ");
+        outputBuffer.append(numNotes);
+        outputBuffer.append(" notes in your list.\n");
+    }
+
+    @Override
     public void printDeleteTask(Task task) {
         outputBuffer.append("Aight boss, I have removed the following task for you:\n");
         outputBuffer.append(task.toString());
@@ -79,6 +89,12 @@ public class GraphicalUI implements UI {
     public void printAddTask(Task task) {
         outputBuffer.append("Got it. This task has been added to your list:\n");
         outputBuffer.append(task.toString());
+    }
+
+    @Override
+    public void printAddNote(Note note) {
+        outputBuffer.append("Got it. This note has been added to your list:\n");
+        outputBuffer.append(note.toString());
     }
 
     @Override
@@ -111,15 +127,28 @@ public class GraphicalUI implements UI {
      * with its index in the list, starting from 1, followed by its string representation.
      * This method outputs the entire task list to the output buffer.
      *
-     * @param taskList The TaskList object containing the tasks to be printed.
+     * @param itemList The ItemList object containing the tasks to be printed.
      */
     @Override
-    public void printTaskList(TaskList taskList) {
+    public void printTaskList(ItemList itemList) {
+        TaskList taskList = (TaskList) itemList;
         for (int i = 0; i < taskList.getSizeTaskList(); i++) {
             int ndxNum = i + 1;
             outputBuffer.append(ndxNum);
             outputBuffer.append(". ");
             outputBuffer.append(taskList.getTask(i).toString());
+            outputBuffer.append("\n");
+        }
+    }
+
+    @Override
+    public void printNoteList(ItemList itemList) {
+        NoteList noteList = (NoteList) itemList;
+        for (int i = 0; i < noteList.getSizeNoteList(); i++) {
+            int ndxNum = i + 1;
+            outputBuffer.append(ndxNum);
+            outputBuffer.append(". ");
+            outputBuffer.append(noteList.getNote(i).toString());
             outputBuffer.append("\n");
         }
     }

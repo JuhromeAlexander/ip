@@ -1,4 +1,4 @@
-package donezo;
+package donezo.lists;
 
 import java.util.ArrayList;
 
@@ -9,39 +9,47 @@ import donezo.tasks.Task;
  * This class provides functionality to add, remove, and retrieve tasks from the list.
  * It also allows for obtaining the total number of tasks in the list.
  */
-public class TaskList {
-    private ArrayList<Task> tasks;
-
+public class TaskList extends ItemList<Task> {
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        super(tasks);
     }
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        super();
+    }
+
+    @Override
+    protected String getSearchField(Task item) {
+        return item.getDescription();
+    }
+
+    @Override
+    protected ItemList<Task> createEmptyList() {
+        return new TaskList();
     }
 
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return getItems();
     }
 
     public int getSizeTaskList() {
-        return tasks.size();
+        return getSizeItemList();
     }
 
     public Task getTask(int ndx) {
-        return tasks.get(ndx);
+        return getItem(ndx);
     }
 
     public void addTask(Task task) {
-        tasks.add(task);
+        addItem(task);
     }
 
     public void removeTask(int ndx) {
-        tasks.remove(ndx);
+        removeItem(ndx);
     }
 
     public boolean isEmpty() {
-        return tasks.isEmpty();
+        return isItemListEmpty();
     }
 
     /**
@@ -56,13 +64,7 @@ public class TaskList {
      *         If no tasks match, an empty TaskList is returned.
      */
     public TaskList findMatchingTasks(String searchTerm) {
-        TaskList matchingTasks = new TaskList();
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(searchTerm.toLowerCase())) {
-                matchingTasks.addTask(task);
-            }
-        }
-        return matchingTasks;
+        return (TaskList) findMatchingItems(searchTerm);
     }
 
 }

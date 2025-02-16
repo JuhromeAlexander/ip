@@ -2,7 +2,7 @@ package donezo.commands;
 
 import java.io.IOException;
 
-import donezo.TaskList;
+import donezo.lists.ItemList;
 import donezo.exceptions.DonezoException;
 import donezo.tasks.Deadline;
 
@@ -17,12 +17,12 @@ public class DeadlineCommand extends Command {
      * creating a Deadline task, and adding it to the given task list
      *
      * @param userInput the full command input from the user
-     * @param taskList the task list where the deadline task will be added
+     * @param itemList  the task list where the deadline task will be added
      * @throws DonezoException if the input is missing the "/by" argument, task description or deadline date
      */
     @Override
-    public void executeCommand(String userInput, TaskList taskList) throws DonezoException {
-        assertCheck(userInput, taskList);
+    public void executeCommand(String userInput, ItemList itemList) throws DonezoException {
+        assertCheck(userInput, itemList);
 
         if (!userInput.contains("/by")) {
             throw new DonezoException("Hey boss, the '/by' argument ain't here. Add it in!");
@@ -41,12 +41,12 @@ public class DeadlineCommand extends Command {
         }
         
         Deadline deadlineTask = new Deadline(deadlineDescription, deadlineArgs);
-        taskList.addTask(deadlineTask);
+        itemList.addItem(deadlineTask);
         
         ui.printAddTask(deadlineTask);
                         
         try {
-            storage.writeToFile(storage.getFilePath(), deadlineTask.toString());
+            taskStorage.writeToFile(taskStorage.getFilePath(), deadlineTask.toString());
         } catch (IOException e) {
             ui.printUnableToSaveTaskFile();
         }
