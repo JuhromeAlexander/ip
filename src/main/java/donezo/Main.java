@@ -23,6 +23,10 @@ public class Main extends Application {
         try {
             donezo = new Donezo(new GraphicalUI());
 
+            // From JavaFxPart 5 Tutorial - Setting Minimum Width & Height
+            stage.setMinHeight(220);
+            stage.setMinWidth(420);
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
 
