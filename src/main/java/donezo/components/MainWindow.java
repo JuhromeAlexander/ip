@@ -64,6 +64,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDonezoDialog(response, dukeImage)
         );
         userInput.clear();
+        if (userText.equals("bye")) {
+            javafx.application.Platform.exit();
+        }
     }
 
 }
