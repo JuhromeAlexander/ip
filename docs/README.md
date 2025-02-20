@@ -3,10 +3,6 @@ Donezo is your all-in-one task manager for managing your **TODOs**, _**Deadlines
 It is optimised for use via a **Command Line Interface (CLI)**, while having the **_benefits_** of a 
 **Graphical User Interface**.
 
-// Product screenshot goes here
-
-// Product intro goes here
-
 ## Quick Look - Features
 > [!Note]
 > - Words in `UPPER_CASE` will be what you supply as the user
