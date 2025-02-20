@@ -5,6 +5,9 @@ import donezo.exceptions.DonezoException;
 import donezo.notes.Note;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class NoteCommand extends Command {
 
@@ -37,6 +40,15 @@ public class NoteCommand extends Command {
         String noteContent = userInput.substring(userInput.indexOf("/content") + 9).trim();
         if (noteContent.isBlank()) {
             throw new DonezoException("Hey Boss, I ain't no mind reader, add the contents of the note in");
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime.parse(noteDate, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DonezoException(
+                    "Hey boss, that note date format ain't right! " +
+                            "Use this format: d/M/yyyy HHmm (e.g., 15/2/2025 1800)");
         }
 
         Note note = new Note(noteTitle, noteDate, noteContent);

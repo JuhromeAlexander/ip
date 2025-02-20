@@ -1,6 +1,9 @@
 package donezo.commands;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import donezo.lists.ItemList;
 import donezo.exceptions.DonezoException;
@@ -46,6 +49,29 @@ public class EventCommand extends Command {
         String eventToArgs = userInput.substring(userInput.indexOf("/to") + 4).trim();
         if (eventToArgs.isBlank()) {
             throw new DonezoException("Hey boss, I ain't no mind reader, add the content for the /to field.");
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime fromDateTime;
+        LocalDateTime toDateTime;
+        try {
+            fromDateTime = LocalDateTime.parse(eventFromArgs, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DonezoException(
+                    "Hey boss, that '/from' format ain't right! Use this format: d/M/yyyy HHmm (e.g., 15/2/2025 1800)");
+        }
+
+        try {
+            if (eventToArgs.contains("/")) {
+                LocalDateTime.parse(eventToArgs, formatter);
+            } else {
+                String fromDate = fromDateTime.toLocalDate().toString(); // "yyyy-MM-dd"
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                LocalDateTime.parse(fromDate + " " + eventToArgs, timeFormatter);
+            }
+        } catch (DateTimeParseException e) {
+            throw new DonezoException(
+                    "Hey boss, that '/to' format ain't right! Use a full date (d/M/yyyy HHmm) or just time (HHmm).");
         }
         
         Event eventTask = new Event(eventDescription, eventFromArgs, eventToArgs);
