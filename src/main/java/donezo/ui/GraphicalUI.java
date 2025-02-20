@@ -87,6 +87,7 @@ public class GraphicalUI implements UI {
     public void printAddTask(Task task) {
         outputBuffer.append("Got it. This task has been added to your list:\n");
         outputBuffer.append(task.toString());
+        outputBuffer.append("\n");
     }
 
     @Override
