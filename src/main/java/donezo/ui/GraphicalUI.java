@@ -8,14 +8,6 @@ import donezo.notes.Note;
 import donezo.tasks.Task;
 
 public class GraphicalUI implements UI {
-    private final String logo = " ______   _______  _        _______  _______  _______ \n"
-            + "(  __  \\ (  ___  )( (    /|(  ____ \\/ ___   )(  ___  )\n"
-            + "| (  \\  )| (   ) ||  \\  ( || (    \\/\\/   )  || (   ) |\n"
-            + "| |   ) || |   | ||   \\ | || (__        /   )| |   | |\n"
-            + "| |   | || |   | || (\\ \\) ||  __)      /   / | |   | |\n"
-            + "| |   ) || |   | || | \\   || (        /   /  | |   | |\n"
-            + "| (__/  )| (___) || )  \\  || (____/\\ /   (_/\\| (___) |\n"
-            + "(______/ (_______)|/    )_)(_______/(_______/(_______)\n";
 
     private StringBuilder outputBuffer = new StringBuilder();
 
@@ -37,7 +29,7 @@ public class GraphicalUI implements UI {
     @Override
     public String greetUser() {
         outputBuffer.append("Hello from \n");
-        outputBuffer.append(logo);
+        outputBuffer.append("Ya Boi Donezo\n");
         outputBuffer.append("\nWhat can I do for you?");
         return outputBuffer.toString();
     }
