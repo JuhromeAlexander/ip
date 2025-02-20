@@ -44,6 +44,7 @@ public class Donezo {
         taskList = taskStorage.loadFromFile();
         noteList = noteStorage.loadFromFile();
         numTasks = taskList.getSizeTaskList();
+        numNotes = noteList.getSizeNoteList();
     }
 
     /**
@@ -82,6 +83,10 @@ public class Donezo {
                     listCommand.executeCommand(userInput, taskList);
                 } else if (listCommand.getListType(userInput).equals("notes")) {
                     listCommand.executeCommand(userInput, noteList);
+                } else {
+                    throw new DonezoException(
+                            "Sorry boss, that list type does not exist. You entered the following type: "
+                                    + listCommand.getListType(userInput));
                 }
 
                 break;
@@ -107,9 +112,19 @@ public class Donezo {
                 deleteCommand.setUi(ui);
                 deleteCommand.setTaskStorage(taskStorage);
                 deleteCommand.setNoteStorage(noteStorage);
-                deleteCommand.executeCommand(userInput, taskList);
-                numTasks--;
-                ui.printNumTasks(numTasks);
+                if (deleteCommand.getDeleteMode(userInput).equals("tasks")) {
+                    deleteCommand.executeCommand(userInput, taskList);
+                    numTasks = taskList.getSizeTaskList();
+                    ui.printNumTasks(numTasks);
+                } else if (deleteCommand.getDeleteMode(userInput).equals("notes")) {
+                    deleteCommand.executeCommand(userInput, noteList);
+                    numNotes = noteList.getSizeNoteList();
+                    ui.printNumNotes(numNotes);
+                } else {
+                    throw new DonezoException(
+                            "Sorry boss, that deletion mode does not exist. You entered the following mode: "
+                            + deleteCommand.getDeleteMode(userInput));
+                }
                 break;
 
             case "deadline":
@@ -118,7 +133,7 @@ public class Donezo {
                 deadlineCommand.setTaskStorage(taskStorage);
                 deadlineCommand.setNoteStorage(noteStorage);
                 deadlineCommand.executeCommand(userInput, taskList);
-                numTasks++;
+                numTasks = taskList.getSizeTaskList();
                 ui.printNumTasks(numTasks);
                 break;
 
@@ -128,7 +143,7 @@ public class Donezo {
                 eventCommand.setTaskStorage(taskStorage);
                 eventCommand.setNoteStorage(noteStorage);
                 eventCommand.executeCommand(userInput, taskList);
-                numTasks++;
+                numTasks = taskList.getSizeTaskList();
                 ui.printNumTasks(numTasks);
                 break;
 
@@ -138,7 +153,7 @@ public class Donezo {
                 todoCommand.setTaskStorage(taskStorage);
                 todoCommand.setNoteStorage(noteStorage);
                 todoCommand.executeCommand(userInput, taskList);
-                numTasks++;
+                numTasks = taskList.getSizeTaskList();
                 ui.printNumTasks(numTasks);
                 break;
 
@@ -156,7 +171,8 @@ public class Donezo {
                 noteCommand.setTaskStorage(taskStorage);
                 noteCommand.setNoteStorage(noteStorage);
                 noteCommand.executeCommand(userInput, noteList);
-                numNotes++;
+                numNotes = noteList.getSizeNoteList();
+                ui.printNumNotes(numNotes);
                 break;
 
             default:

@@ -21,7 +21,7 @@ public class ParserNoteStorage {
                 if (i + 4 < lines.size() && lines.get(i + 4).trim().equals("<note>")) {
                     String title = lines.get(i + 1).trim().substring(7);
                     String date = lines.get(i + 2).trim().substring(6);
-                    String description = lines.get(i + 3).trim().substring(13);
+                    String description = lines.get(i + 3).trim().substring(9);
 
                     DateTimeFormatter storedFormat = DateTimeFormatter.ofPattern("d MMM yyyy, h:mm a");
                     DateTimeFormatter noteConstructorFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

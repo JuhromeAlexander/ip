@@ -16,6 +16,7 @@ public interface UI {
     void printNumTasks(int numTasks);
     void printNumNotes(int numNotes);
     void printDeleteTask(Task task);
+    void printDeleteNote(Note note);
     void printAddTask(Task task);
     void printAddNote(Note note);
     void printDonezoExceptionMessage(DonezoException donezo);

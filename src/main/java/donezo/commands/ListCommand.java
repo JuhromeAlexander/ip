@@ -22,6 +22,9 @@ public class ListCommand extends Command {
         case "tasks", "notes":
             listHelper(listType, itemList);
             break;
+
+        default:
+            listHelper("tasks", itemList);
         }
 
     }

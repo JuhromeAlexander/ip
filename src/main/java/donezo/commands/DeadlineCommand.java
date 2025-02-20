@@ -1,6 +1,9 @@
 package donezo.commands;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import donezo.lists.ItemList;
 import donezo.exceptions.DonezoException;
@@ -38,6 +41,14 @@ public class DeadlineCommand extends Command {
         String deadlineArgs = userInput.substring(userInput.indexOf("/by") + 4).trim();
         if (deadlineArgs.isBlank()) {
             throw new DonezoException("Hey boss, I think you're forgetting the actual deadline. Add it in!");
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime.parse(deadlineArgs, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DonezoException(
+                    "Hey boss, that deadline format ain't right! Use this format: d/M/yyyy HHmm (e.g., 15/2/2025 1800)");
         }
         
         Deadline deadlineTask = new Deadline(deadlineDescription, deadlineArgs);

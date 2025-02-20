@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import donezo.lists.ItemList;
 import donezo.exceptions.DonezoException;
+import donezo.lists.NoteList;
 import donezo.lists.TaskList;
+import donezo.notes.Note;
 import donezo.tasks.Task;
 
 
@@ -27,19 +29,62 @@ public class DeleteCommand extends Command {
     public void executeCommand(String userInput, ItemList itemList) throws DonezoException {
         assertCheck(userInput, itemList);
 
-        int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
-        if (taskNdx > itemList.getSizeItemList()) {
-            throw new DonezoException(
-                    "Sorry boss, that task does not exist. Try using 'list' to see the index of the task again!");
-        }
-        
-        ui.printDeleteTask((Task) itemList.getItem(taskNdx));
-        itemList.removeItem(taskNdx);
+        String deleteMode = getDeleteMode(userInput);
 
-        try {
-            taskStorage.deleteFromFile(taskStorage.getFilePath(), (TaskList) itemList);
-        } catch (IOException e) {
-            throw new DonezoException("Whoops unable to delete file!");
+        int itemNdx = Integer.parseInt(userInput.split(" ")[3]) - 1;
+        if (itemNdx > itemList.getSizeItemList() || itemNdx < 0) {
+            throw new DonezoException(
+                    "Sorry boss, that item does not exist. Try using 'list' to see the index of the item again!");
+        }
+        deleteHelper(deleteMode, itemList, itemNdx);
+    }
+
+    public String getDeleteMode(String userInput) throws DonezoException {
+        String[] tokens = userInput.trim().split("\\s+");
+        String deleteMode = "";
+        for (int i = 0; i < tokens.length; i++) {
+            if (tokens[i].equalsIgnoreCase("/m") || tokens[i].equalsIgnoreCase("/mode")) {
+                if (i + 1 < tokens.length) {
+                    deleteMode = tokens[i + 1].toLowerCase();
+                } else {
+                    throw new DonezoException(
+                            "Hey boss, I think you're forgetting the mode this command is for. Add it in!");
+                }
+                break;
+            }
+        }
+
+        if (tokens.length < 4) {
+            throw new DonezoException(
+                    "Hey boss, you forgot the index of the item you want to delete!");
+        }
+
+        return deleteMode;
+    }
+
+    private void deleteHelper(String deleteMode, ItemList itemList, int itemNdx) throws DonezoException {
+        switch (deleteMode.toLowerCase()) {
+        case "tasks":
+            ui.printDeleteTask((Task) itemList.getItem(itemNdx));
+            itemList.removeItem(itemNdx);
+            try {
+                taskStorage.deleteFromFile(taskStorage.getFilePath(), (TaskList) itemList);
+            } catch (IOException e) {
+                throw new DonezoException("Whoops unable to delete file!");
+            }
+            break;
+        case "notes":
+            ui.printDeleteNote((Note) itemList.getItem(itemNdx));
+            itemList.removeItem(itemNdx);
+            try {
+                noteStorage.deleteFromFile(noteStorage.getFilePath(), (NoteList) itemList);
+            } catch (IOException e) {
+                throw new DonezoException("Whoops unable to delete file!");
+            }
+            break;
+        default:
+            throw new DonezoException("Sorry boss, that deletion mode does not exist. You entered the following mode: "
+                    + deleteMode);
         }
     }
     
