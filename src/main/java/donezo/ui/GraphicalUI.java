@@ -86,6 +86,12 @@ public class GraphicalUI implements UI {
     }
 
     @Override
+    public void printDeleteNote(Note note) {
+        outputBuffer.append("Aight boss, I have removed the following note for you:\n");
+        outputBuffer.append(note.toString());
+    }
+
+    @Override
     public void printAddTask(Task task) {
         outputBuffer.append("Got it. This task has been added to your list:\n");
         outputBuffer.append(task.toString());

@@ -88,6 +88,11 @@ public class CommandLineUI implements UI {
     }
 
     @Override
+    public void printDeleteNote(Note note) {
+        System.out.println("Aight boss, I have removed the following task for you:\n" + note.toString());
+    }
+
+    @Override
     public void printAddTask(Task task) {
         System.out.println("Got it. This task has been added to your list:\n" + task.toString());
     }
