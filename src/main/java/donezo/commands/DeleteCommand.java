@@ -36,7 +36,6 @@ public class DeleteCommand extends Command {
             throw new DonezoException(
                     "Sorry boss, that item does not exist. Try using 'list' to see the index of the item again!");
         }
-
         deleteHelper(deleteMode, itemList, itemNdx);
     }
 
@@ -51,10 +50,11 @@ public class DeleteCommand extends Command {
                     throw new DonezoException(
                             "Hey boss, I think you're forgetting the mode this command is for. Add it in!");
                 }
+                break;
             }
         }
 
-        if (tokens.length != 4) {
+        if (tokens.length < 4) {
             throw new DonezoException(
                     "Hey boss, you forgot the index of the item you want to delete!");
         }
@@ -81,6 +81,10 @@ public class DeleteCommand extends Command {
             } catch (IOException e) {
                 throw new DonezoException("Whoops unable to delete file!");
             }
+            break;
+        default:
+            throw new DonezoException("Sorry boss, that deletion mode does not exist. You entered the following mode: "
+                    + deleteMode);
         }
     }
     

@@ -2,6 +2,7 @@ package donezo.commands;
 
 import java.io.IOException;
 
+import donezo.exceptions.DonezoException;
 import donezo.lists.ItemList;
 import donezo.lists.TaskList;
 import donezo.tasks.Task;
@@ -20,10 +21,16 @@ public class MarkCommand extends Command {
      * @param itemList  the task list containing the tasks to be updated
      */
     @Override
-    public void executeCommand(String userInput, ItemList itemList) {
+    public void executeCommand(String userInput, ItemList itemList) throws DonezoException {
         assertCheck(userInput, itemList);
 
         int taskNdx = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+        if (taskNdx >= itemList.getSizeItemList()) {
+            throw new DonezoException(
+                    "Sorry boss, that item does not exist. Try using 'list' to see the index of the item again!");
+        }
+
         Task affectedTask = (Task) itemList.getItem(taskNdx);
         affectedTask.setDone(true);
         ui.markTaskComplete(affectedTask);

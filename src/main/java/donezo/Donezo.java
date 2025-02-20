@@ -83,6 +83,10 @@ public class Donezo {
                     listCommand.executeCommand(userInput, taskList);
                 } else if (listCommand.getListType(userInput).equals("notes")) {
                     listCommand.executeCommand(userInput, noteList);
+                } else {
+                    throw new DonezoException(
+                            "Sorry boss, that list type does not exist. You entered the following type: "
+                                    + listCommand.getListType(userInput));
                 }
 
                 break;
@@ -116,6 +120,10 @@ public class Donezo {
                     deleteCommand.executeCommand(userInput, noteList);
                     numNotes = noteList.getSizeNoteList();
                     ui.printNumNotes(numNotes);
+                } else {
+                    throw new DonezoException(
+                            "Sorry boss, that deletion mode does not exist. You entered the following mode: "
+                            + deleteCommand.getDeleteMode(userInput));
                 }
                 break;
 
