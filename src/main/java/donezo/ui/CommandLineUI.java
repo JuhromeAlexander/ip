@@ -163,6 +163,11 @@ public class CommandLineUI implements UI {
     }
 
     @Override
+    public void printEmpty() {
+        System.out.println("Hey boss, there are no items in your list.");
+    }
+
+    @Override
     public void printGenericErrorMsg() {
         System.out.println("Oooops! Something went wrong!");
     }

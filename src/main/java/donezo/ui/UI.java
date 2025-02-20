@@ -27,4 +27,5 @@ public interface UI {
     void printTaskList(ItemList itemList);
     void printNoteList(ItemList itemList);
     void printGenericErrorMsg();
+    void printEmpty();
 }

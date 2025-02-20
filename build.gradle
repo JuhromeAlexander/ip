@@ -40,11 +40,11 @@ test {
 }
 
 application {
-    mainClass.set("donezo.Donezo")
+    mainClass.set("donezo.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "donezoCLI"
+    archiveBaseName = "donezoGui"
     archiveClassifier = null
 }
 

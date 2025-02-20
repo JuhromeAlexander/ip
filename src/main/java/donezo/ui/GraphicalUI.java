@@ -157,6 +157,11 @@ public class GraphicalUI implements UI {
         outputBuffer.append("Oooops! Something went wrong!");
     }
 
+    @Override
+    public void printEmpty() {
+        outputBuffer.append("Hey boss, there are no items in your list.");
+    }
+
     public String getAndClearOutputBuffer() {
         String output = outputBuffer.toString();
         outputBuffer.setLength(0);

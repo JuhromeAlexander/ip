@@ -48,7 +48,7 @@ public class ListCommand extends Command {
 
     private void listHelper(String listType, ItemList itemList) {
         if (itemList.isItemListEmpty()) {
-            ui.printGenericErrorMsg();
+            ui.printEmpty();
         } else {
             if (listType.equalsIgnoreCase("tasks")) {
                 ui.printTaskList(itemList);
